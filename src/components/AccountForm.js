@@ -1,11 +1,9 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-const AccountDetailsTab = () =>
+const AccountForm = props =>
 {
-  return(
-    <div></div>
-  )
+  return( <div>accountform</div> )
 }
 
 const mapStateToProps = state =>
@@ -13,4 +11,4 @@ const mapStateToProps = state =>
   return {currentUser: state.currentUser}
 }
 
-export default connect(mapStateToProps)(AccountDetailsTab);
+export default connect(mapStateToProps)(AccountForm)
