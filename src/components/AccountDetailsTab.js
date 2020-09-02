@@ -3,7 +3,14 @@ import {connect} from 'react-redux'
 
 const AccountDetailsTab = () =>
 {
-
+  return(
+    <div></div>
+  )
 }
 
-export default connect()(AccountDetailsTab);
+const mapStateToProps = state =>
+{
+  return {currentUser: state.currentUser}
+}
+
+export default connect(mapStateToProps)(AccountDetailsTab);
