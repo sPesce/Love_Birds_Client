@@ -1,20 +1,23 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
+import {useHistory} from 'react-router-dom'
 import {USERS_URL} from '../constants/URL.js'
 import configObj from '../helpers/configObj.js'
 
 const SignupForm = (props) => {
-  const { register, handleSubmit, watch, errors } = useForm();
+  
+  const history = useHistory()
   const onSubmit = data => 
   {
     fetch(USERS_URL,configObj("POST",false,{user: data}))
     .then(r => r.json())
     .then(user => {
       localStorage.token = user.token
-      window.history.push({page: "dashboard"},"dashboard","/dashboard/")
+      history.push("/dashboard/")
     });
   }
-
+  
+  const { register, handleSubmit, watch, errors } = useForm();
   return (
     <form className={"ui form"} onSubmit={handleSubmit(onSubmit)}>
       <div className="field">

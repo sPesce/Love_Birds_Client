@@ -1,8 +1,44 @@
-import React from 'react'
+import React, {Component,history} from 'react'
+import {useHistory} from 'react-router-dom'
+import configObj from '../helpers/configObj'
+import {URL} from '../constants/URL'
+import DashSidebar from '../containers/DashSidebar'
+import {connect} from 'react-redux'
+import {setCurrentUser} from '../actions/currentUser'
 
-const Dashboard = props =>
+
+class Dashboard extends Component
 {
-  return <></>
-}
+  state = {
+    activeTab: 'notifications',
+    accountIssues: []
+  }  
 
-export default Dashboard;
+  componentDidMount(){
+    (!localStorage.token && history.push('/landing/'))
+    fetch(URL + "find_user/", configObj("GET",true))
+    .then(r => r.json())
+    .then(data => this.props.setCurrentUser({user: data.data.attributes}))
+  };
+  render(){
+    console.log(this.props.user);
+    const {user} = this.props
+    return(
+      <div>
+        <DashSidebar />
+      </div>
+      ) 
+      
+    }
+    
+  }
+  
+  const mapStateToProps = (state) =>
+  {
+    return {user: state.user}
+  }
+  
+  export default connect(mapStateToProps,{setCurrentUser})(Dashboard);
+  
+  
+  // {debugger}
