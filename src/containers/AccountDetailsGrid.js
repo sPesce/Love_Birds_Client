@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import {connect} from 'react-redux'
 import {Grid,Button} from 'semantic-ui-react'
-import AccountDetailsRow from '../components/AccountDetailsRow'
+import AccountDetailsRow from './AccountDetailsRow'
 import {useForm} from 'react-hook-form'
 import {USERS_URL} from '../constants/URL'
 import configObj from '../helpers/configObj'
@@ -96,7 +96,8 @@ const AccountDetailsGrid = (props) =>
     }    
     const allFields = fields.concat(conditionalFields)
     return allFields.map((field) => <AccountDetailsRow field={field}/>)
-  }
+   
+  } 
 
   const onSubmit = (data) =>
   {
@@ -106,10 +107,10 @@ const AccountDetailsGrid = (props) =>
     .then(() => updateEdit(false))
   }
 
-  const generateButtons = () =>
+  const generateBasicButtons = () =>
   {
     if (!editing)
-      return <Button positive onClick={() => updateEdit(true)}>Edit</Button>
+      return <Button positive onClick={() => updateEdit(true)}>Edit Basic Info</Button>
     else//IS editing
     {
       return(
@@ -122,13 +123,18 @@ const AccountDetailsGrid = (props) =>
     }
   }
 
-  return( 
-    <form className="ui form" onSubmit={handleSubmit(onSubmit)}>
-      <Grid celled columns={2} className="account-grid">
-        {renderRows()}
-      </Grid>      
-      { generateButtons() }        
-    </form>
+  return(
+    <>
+      <h2>Basic Info:</h2> 
+      <h4><i>Note: Editing name flags account to be unverified.</i></h4>
+      <h4><i>Please allow 24 hours after updates for verification.</i></h4>
+      <form className="ui form" onSubmit={handleSubmit(onSubmit)}>
+        <Grid celled columns={2} className="account-grid">
+          {renderRows()}
+        </Grid>
+        { generateBasicButtons() }
+      </form>      
+    </>        
    ) 
 }
 

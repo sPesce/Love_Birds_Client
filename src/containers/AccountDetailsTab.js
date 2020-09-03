@@ -7,12 +7,18 @@ import {connect} from 'react-redux'
 import {Grid} from 'semantic-ui-react'
 import AccountDetailsGrid from './AccountDetailsGrid'
 import AccountForm from '../components/AccountForm'
+import AccountListDetails from './AccountListDetails.js'
 
 const AccountDetailsTab = () =>
 {
   
 
-  return( <AccountDetailsGrid /> )
+  return(
+    <> 
+      <AccountDetailsGrid />
+      <AccountListDetails /> 
+    </>
+    )
 }
 
 
