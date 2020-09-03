@@ -10,14 +10,11 @@ import AccountForm from '../components/AccountForm'
 
 const AccountDetailsTab = () =>
 {
-  const [editing,updateEdit] = useState(false)
+  
 
-  return( editing ? <AccountForm /> : <AccountDetailsGrid updateEdit={updateEdit}/> )
+  return( <AccountDetailsGrid /> )
 }
 
-const mapStateToProps = state =>
-{
-  return {currentUser: state.currentUser}
-}
 
-export default connect(mapStateToProps)(AccountDetailsTab);
+
+export default AccountDetailsTab;
