@@ -18,7 +18,12 @@ class Dashboard extends Component
     (!localStorage.token && history.push('/landing/'))
     fetch(URL + "find_user/", configObj("GET",true))
     .then(r => r.json())
-    .then(data => this.props.setCurrentUser({user: data.data.attributes}))
+    .then(data => {
+      console.log(data)
+      const userData = {user: data.data.attributes}
+      userData.user.disabilities = [...data.data.relationships.disabilities.data]
+      this.props.setCurrentUser(userData)
+    })
   };
   render(){
     console.log(this.props.user);

@@ -1,12 +1,16 @@
 import React from 'react'
 import {Grid,Button} from 'semantic-ui-react'
 import {useForm} from 'react-hook-form'
+import {DISABILITIES_URL} from '../constants/URL'
+import configObj from '../helpers/configObj'
+import {connect} from 'react-redux'
+import {setCurrentUser} from '../actions/currentUser'
 
 const AccountListDetails = () =>
 {
+
   const interests = ["detail1", "detail2", "detail3"]
-  
-  const disabilities = ["detail1", "detail2", "detail3"]
+  const disabilities = [""]
   
   const onAddInterest = (interest) =>
   {
@@ -14,7 +18,10 @@ const AccountListDetails = () =>
   }
   const onAddDisability = (disability) =>
   {
-    console.log(disability)
+    console.log(disability);
+    fetch(DISABILITIES_URL,configObj("POST",true,disability))
+    .then(r => r.json())
+    .then({/*fetchuser?*/})
   }
   
   const { register, errors, handleSubmit } = useForm({
@@ -51,6 +58,7 @@ const AccountListDetails = () =>
 
     return (
       <form key={2} onSubmit={handleSubmit2(onAddDisability)}>
+        <p><i>Note: Disabilities are private to you and your caretaker.</i></p>
         <div className="field">
           <input name="disability"
             type="text"
@@ -90,4 +98,10 @@ const AccountListDetails = () =>
   )
 }
 
-export default AccountListDetails;
+
+const mapStateToProps = (state) =>
+  {
+    return {user: state.user}
+  }
+  
+  export default connect(mapStateToProps,{setCurrentUser})(AccountListDetails);

@@ -5,7 +5,7 @@ export const currentUserReducer = (state = {}, action) => {
     case "SET_CURRENT_USER":
       const {user} = action.user
       user.notifications = accountIssues(user.validated,user.account_complete)
-      return user
+      return user 
     default:
       return state;
   }
