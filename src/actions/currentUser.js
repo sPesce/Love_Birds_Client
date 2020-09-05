@@ -1,7 +1,7 @@
-export const setCurrentUser = user =>
+export const setCurrentUser = currentUser =>
 {
   return {
     type: 'SET_CURRENT_USER',
-    user
+    currentUser
   }
 }

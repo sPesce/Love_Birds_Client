@@ -1,30 +1,33 @@
 import React from 'react'
 import {Grid,Button} from 'semantic-ui-react'
 import {useForm} from 'react-hook-form'
-import {DISABILITIES_URL} from '../constants/URL'
+import {DISABILITIES_URL, INTERESTS_URL} from '../constants/URL'
 import configObj from '../helpers/configObj'
 import {connect} from 'react-redux'
-import {setCurrentUser} from '../actions/currentUser'
+import {setInterests} from '../actions/interests'
+import {setDisabilities} from '../actions/disabilities'
 
-const AccountListDetails = () =>
+const AccountListDetails = (props) =>
 {
 
   const interests = ["detail1", "detail2", "detail3"]
-  const disabilities = [""]
   
   const onAddInterest = (interest) =>
   {
-    console.log(interest)
+    fetch(INTERESTS_URL,configObj("POST",true,interest))
+    .then(r => r.json())
+    .then(data => props.setInterests(data.data.map(interest => interest.attributes.name)))
+    reset();
   }
   const onAddDisability = (disability) =>
   {
-    console.log(disability);
     fetch(DISABILITIES_URL,configObj("POST",true,disability))
     .then(r => r.json())
-    .then({/*fetchuser?*/})
+    .then(data => props.setDisabilities(data.data.map(disability => disability.attributes.name)))
+    reset2();
   }
   
-  const { register, errors, handleSubmit } = useForm({
+  const { register, errors, handleSubmit, reset } = useForm({
     mode: "onBlur"
   });
   
@@ -46,11 +49,15 @@ const AccountListDetails = () =>
 
   const {
     register: register2,
+    reset: reset2,
     errors: errors2,
     handleSubmit: handleSubmit2
   } = useForm({
-    mode: "onBlur"
+    mode: "onBlur",
+    defaultValues: {disability: ""}
   });
+
+  
   
   const renderDisabilitiesForm = () =>
   {
@@ -71,7 +78,6 @@ const AccountListDetails = () =>
       </form>
     )
   }
-
   return (
     <>
       <Grid columns={4}>
@@ -80,18 +86,22 @@ const AccountListDetails = () =>
             {renderInterestsForm()}
           </Grid.Column>
           <Grid.Column width={4}>
-            <ul>
-              {interests.map((value) => <li><h5><i>{value}</i></h5></li>)}
-            </ul>
+            <div className="cell list">
+              <ul>
+                {props.interests.map((value) => <li><h5><i>{value}</i></h5></li>)}
+              </ul>
+            </div>
           </Grid.Column>
           <Grid.Column width={3}>
             <h4><strong>Disabilities</strong></h4>
             {renderDisabilitiesForm()}
           </Grid.Column>
           <Grid.Column width={4}>
-            <ul>
-              {disabilities.map((value) => <li><h5><i>{value}</i></h5></li>)}
-            </ul>
+            <div className="cell list">
+              <ul>
+                {props.disabilities && props.disabilities.map((value) => <li><h5><i>{value}</i></h5></li>)}
+              </ul>
+            </div>
           </Grid.Column>
       </Grid>
     </>
@@ -100,8 +110,12 @@ const AccountListDetails = () =>
 
 
 const mapStateToProps = (state) =>
-  {
-    return {user: state.user}
-  }
+{
+    return {
+      user: state.currentUser,
+      disabilities: state.disabilities,
+      interests: state.interests
+    };
+}
   
-  export default connect(mapStateToProps,{setCurrentUser})(AccountListDetails);
+  export default connect(mapStateToProps,{setDisabilities,setInterests})(AccountListDetails);

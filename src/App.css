@@ -36,8 +36,8 @@
     transform: rotate(360deg);
   }
 }
-
-.account-grid
+div.cell.list
 {
-  padding-right: 0%;
+  padding-left: 25px;
 }
+
