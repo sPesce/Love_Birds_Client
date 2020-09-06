@@ -39,7 +39,7 @@ const AccountDetailsGrid = (props) =>
           <div className="field">
             <input  name="first"
                     type="text"
-                    value={first} 
+                    defaultvalue={first} 
                     ref={register({required: true})}
                     aria-label="first"
                     aria-required="true" 
@@ -51,7 +51,7 @@ const AccountDetailsGrid = (props) =>
           <div className="field">
             <input  name="last"
                     type="text"
-                    value={last} 
+                    defaultvalue={last} 
                     ref={register({required: true})}
                     aria-label="last"
                     aria-required="true" 
@@ -63,7 +63,8 @@ const AccountDetailsGrid = (props) =>
           <div className="field">
             <input  name="zip_code"
                     type="text"
-                    value={zip_code} 
+                    defaultValue={zip_code}
+                   
                     ref={register({required: true})}
                     aria-label="zip_code"
                     aria-required="true" 
@@ -75,7 +76,7 @@ const AccountDetailsGrid = (props) =>
           <div className="field">
             <input  name="bio"
                     type="text"
-                    value={bio} 
+                    defaultvalue={bio} 
                     ref={register({required: true})}
                     aria-label="bio"
                     aria-required="true" 
@@ -103,7 +104,7 @@ const AccountDetailsGrid = (props) =>
   {
     fetch(USERS_URL + "update/",configObj("PATCH",true,{user: data}))
     .then(r => r.json())
-    .then(data  =>  props.setCurrentUser({user: data.data.attributes}))
+    .then(data  =>  props.setCurrentUser(data.data.attributes))
     .then(() => updateEdit(false))
   }
 

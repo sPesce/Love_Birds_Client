@@ -7,7 +7,7 @@ const AccountDetailsRow = (props) =>
     return(
       <> 
         <Grid.Row>
-          <Grid.Column>
+          <Grid.Column width={3}>
             <h4><strong>{label}:</strong></h4>
           </Grid.Column>      
           <Grid.Column >
