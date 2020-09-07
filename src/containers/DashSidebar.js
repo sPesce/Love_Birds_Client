@@ -4,6 +4,7 @@ import DashTabs from './DashTabs'
 import {setCurrentTab} from '../actions/currentTab'
 import {connect} from 'react-redux'
 import accountIssues from '../helpers/accountIssues'
+import {useHistory} from 'react-router-dom'
 
 const DashboardSidebar = props => {
 
@@ -11,7 +12,7 @@ const DashboardSidebar = props => {
   {
     return (props.currentTab === name) ? 'blue' : inactiveColor
   }
-
+  const history = useHistory()
   const active = props.currentTab
   const user = props.currentUser
   return (
@@ -42,6 +43,13 @@ const DashboardSidebar = props => {
           >
             <Label color={setColor('matches','teal')}>1</Label>
             Matches
+          </Menu.Item>      
+          
+          <Menu.Item
+            name='find matches'
+            onClick={() => props.setCurrentTab('find matches') }
+          >
+            Find Matches
           </Menu.Item>      
         </Menu>
       </Grid.Column>
