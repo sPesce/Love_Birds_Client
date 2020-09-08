@@ -59,7 +59,7 @@ const AccountDetailsGrid = (props) =>
             <Input  name="first"
                     type="text"
                     defaultValue={first} 
-                    onChange={(e) => setValue(e.target.name,e.target.value)}
+                    onChange={(e) => handleChange(e)}
                     aria-label="first"
                     aria-required="false" 
                     />
@@ -71,7 +71,7 @@ const AccountDetailsGrid = (props) =>
             <Input  name="last"
                     type="text"
                     defaultValue={last} 
-                    
+                    onChange={(e) => handleChange(e)}
                     aria-label="last"
                     aria-required="false" 
                     />
@@ -83,8 +83,7 @@ const AccountDetailsGrid = (props) =>
             <Input  name="zip_code"
                     type="text"
                     defaultValue={zip_code}
-                   
-                    
+                    onChange={(e) => handleChange(e)}
                     aria-label="zip_code"
                     aria-required="false" 
                     />
@@ -94,9 +93,10 @@ const AccountDetailsGrid = (props) =>
           "Gender & Matching",
           <div id="gender-form">
             I am a  
-            <Input  name='gender' list='gender' placeholder='Choose Your Gender...' 
+            <Input  name='gender' list='gender' placeholder={gender ? gender : 'Choose Your Gender...'} 
                     aria-label="my-gender"
                     aria-required="false"
+                    onChange={(e) => handleChange(e)}
                     />
               <datalist id='gender'>
                 <option value='Male'>Male</option>
@@ -104,9 +104,10 @@ const AccountDetailsGrid = (props) =>
                 <option value='Other'>Other</option>
               </datalist>
                 and I want to match with
-            <Input  name='match_gender' list='match-gender' placeholder='Choose Gender to Match...' 
+            <Input  name='match_gender' list='match-gender' placeholder={match_gender ? match_gender : 'Choose Gender to Match...'} 
                     aria-label="my-gender"
                     aria-required="false"
+                    onChange={(e) => handleChange(e)}
                     />
               <datalist id='match-gender'>
                 <option value='Male'>Males</option>
@@ -124,7 +125,8 @@ const AccountDetailsGrid = (props) =>
                     defaultValue={bio} 
                     ref={register()}
                     aria-label="bio"
-                    aria-required="false" 
+                    aria-required="false"
+                    onChange={(e) => handleChange(e)} 
                     />
           </div>
         ]      
@@ -155,6 +157,11 @@ const AccountDetailsGrid = (props) =>
     .then(r => r.json())
     .then(data  =>  props.setCurrentUser(data.data.attributes))
     .then(() => updateEdit(false))
+  }
+
+  const handleChange = ({target}) =>
+  {
+    setValue(target.name,target.value)
   }
 
   const generateBasicButtons = () =>

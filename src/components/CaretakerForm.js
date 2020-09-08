@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {useForm} from 'react-hook-form'
 import {Button,Form} from 'semantic-ui-react'
 import configObj from '../helpers/configObj'
-import {ADD_CARETAKER,REMOVE_CARETAKER} from '../constants/URL'
+import {ADD_CARETAKER,REMOVE_CARETAKER,ACCEPT_CARETAKER} from '../constants/URL'
 import {removeCaretaker,setCaretaker} from '../actions/caretaker' 
 
 
@@ -31,8 +31,16 @@ const CaretakerForm = (props) => {
     }) 
   }
 
-  const isCaretaker = props.currentUser.account_type === "caretaker"
-  if(props.currentUser  && !props.caretaker.user)
+  const handleAcceptCaretaker = () =>
+  {
+    fetch(ACCEPT_CARETAKER,configObj("PATCH",true))
+    .then(r => r.json())
+    .then(caretaker => props.setCaretaker(caretaker))
+  }
+
+  const {caretaker,currentUser} = props
+  const isCaretaker = currentUser.account_type === "caretaker"
+  if(currentUser  && !caretaker.user)
   {
     return (
       <Form onSubmit={handleSubmit(addCaretaker)}>
@@ -49,14 +57,27 @@ const CaretakerForm = (props) => {
       </Form>
     )
   }
-  if(props.currentUser && props.caretaker.user)
+  if(currentUser && caretaker.user)
   {
-    return(
-    <>
-      <h4>{isCaretaker ? "Caretaker to" : "Caretaker"}: {props.caretaker[isCaretaker ? "user" : "caretaker"]}</h4>    
-      {isCaretaker && props.caretaker && <Button onClick={() => handleClick()}>Remove Caretaker Control</Button>} 
-    </>
-    )
+    if(caretaker.accepted === "BOTH")
+    {
+      return(
+        <>
+          <h4>{isCaretaker ? "Caretaker to" : "Caretaker"}: {caretaker[isCaretaker ? "user" : "caretaker"]}</h4>    
+          {isCaretaker && caretaker && <Button onClick={() => handleClick()}>Remove Caretaker Control</Button>} 
+        </>
+    )}else if(caretaker.accepted === currentUser.email)
+      return <h4>{`Waiting for ${isCaretaker ? "user to accept your caretaker request" : " caretaker to accept request"}`}</h4>
+    else
+    {
+      return(
+        <>
+          <h4>{isCaretaker ? `${caretaker.user} added you as their caretaker` : `${caretaker.caretaker} wants to be the caretaker of your account`}</h4>
+          <Button color='violet' onClick={() => handleAcceptCaretaker()}>Accept Caretaker Request</Button>
+        </>
+      )
+    }   
+    
   }
 }
 
