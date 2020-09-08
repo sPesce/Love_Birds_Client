@@ -5,7 +5,7 @@ const NotificationsTab = ({notifications}) =>
 {
   const renderNotifications = () =>
   {
-    return notifications ? notifications.map(note => <li>{note}</li> ) : null
+    return notifications ? notifications.map(note => <li key={`li-${note}`}>{note}</li> ) : null
   }
 
   return (

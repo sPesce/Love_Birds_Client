@@ -22,7 +22,7 @@ const DashTabs = ({currentTab}) =>
   return( 
     <Grid.Column  width={12}>
       <Segment>
-        <p>{renderTab()}</p>
+        {renderTab()}
       </Segment>
     </Grid.Column> )
 }

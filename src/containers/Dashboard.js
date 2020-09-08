@@ -11,11 +11,6 @@ import {setInterests} from '../actions/interests'
 
 class Dashboard extends Component
 {
-  state = {
-    activeTab: 'notifications',
-    accountIssues: []
-  }  
-
   componentDidMount(){
     (!localStorage.token && history.push('/landing/'))
     fetch(URL + "find_user/", configObj("GET",true))
@@ -24,33 +19,31 @@ class Dashboard extends Component
       console.log(data)
       const userData = data.data.attributes      
       this.props.setCurrentUser(userData)
-      let interests = []
-      let disabilities = []
-      data.included.forEach((record) => {
-        const {type} = record
-        const {name} = record.attributes
-        if(type === "disability")
-          disabilities.push(name)
-        else if (type === "interest")
-          interests.push(name)
-      })
-      console.log(interests)
-      console.log(disabilities)
-      this.props.setInterests(interests);
-      this.props.setDisabilities(disabilities);
+      if(userData.account_type === "standard")
+      {
+        let interests = []
+        let disabilities = []
+        data.included.forEach((record) => {
+          const {type} = record
+          const {name} = record.attributes
+          if(type === "disability")
+            disabilities.push(name)
+          else if (type === "interest")
+            interests.push(name)
+        })
+        this.props.setInterests(interests);
+        this.props.setDisabilities(disabilities);        
+      }
     })  
   };
   render(){
-    console.log(this.props.user);
     const {user} = this.props
     return(
       <div>
         <DashSidebar />
       </div>
       ) 
-      
     }
-    
   }
   
   const mapStateToProps = (state) =>
@@ -60,5 +53,3 @@ class Dashboard extends Component
   
   export default connect(mapStateToProps,{setCurrentUser,setDisabilities,setInterests})(Dashboard);
   
-  
-  // {debugger}

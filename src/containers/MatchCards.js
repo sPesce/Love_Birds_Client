@@ -3,6 +3,7 @@ import MatchCard from '../containers/MatchCard'
 
 const MatchCards = ({matches}) =>
 {
+  console.log(matches)
   const renderCards = () =>
   {
     let i = 0;

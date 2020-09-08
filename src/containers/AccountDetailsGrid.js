@@ -1,28 +1,47 @@
-import React, {useState} from 'react'
+import React, {useState,useEffect} from 'react'
 import {connect} from 'react-redux'
-import {Grid,Button} from 'semantic-ui-react'
+import {Grid,Button,Input} from 'semantic-ui-react'
 import AccountDetailsRow from './AccountDetailsRow'
 import {useForm} from 'react-hook-form'
 import {USERS_URL} from '../constants/URL'
 import configObj from '../helpers/configObj'
 import {setCurrentUser} from '../actions/currentUser'
+import CaretakerForm from '../components/CaretakerForm'
 
 const AccountDetailsGrid = (props) =>
 {  
   const [editing,updateEdit] = useState(false)
-  const {
-    first,
-    last,
-    email,
-    bio,
-    zip_code,
-    account_type,
-    created_at, 
-  } = props.currentUser
+  
 
-  const {register,handleSubmit,errors} = useForm();
+  const {register,handleSubmit,errors,setValue} = useForm();
+
+  
+  useEffect(() => {
+    register({name: 'first'}, { required: false });
+    register({name: 'last'}, { required: false });
+    register({name: 'zip_code'}, { required: false });
+    register({name: 'gender'}, { required: false });
+    register({name: 'match_gender'}, { required: false });
+    register({name: 'bio'}, { required: false });
+
+  }, []);
+
   const renderRows = () =>
   {
+    
+    const {
+      first,
+      last,
+      email,
+      bio,
+      zip_code,
+      account_type,
+      created_at,
+      gender,
+      match_gender
+     
+    } = props.currentUser
+
     const fields = [
       ["Account Created", created_at],
       ["Account Type", account_type],
@@ -37,49 +56,75 @@ const AccountDetailsGrid = (props) =>
         [
           "First Name",
           <div className="field">
-            <input  name="first"
+            <Input  name="first"
                     type="text"
-                    defaultvalue={first} 
-                    ref={register({required: true})}
+                    defaultValue={first} 
+                    onChange={(e) => setValue(e.target.name,e.target.value)}
                     aria-label="first"
-                    aria-required="true" 
+                    aria-required="false" 
                     />
           </div>
         ],
         [
           "Last Name",
           <div className="field">
-            <input  name="last"
+            <Input  name="last"
                     type="text"
-                    defaultvalue={last} 
-                    ref={register({required: true})}
+                    defaultValue={last} 
+                    
                     aria-label="last"
-                    aria-required="true" 
+                    aria-required="false" 
                     />
           </div>
         ],
         [
           "Zip Code",
           <div className="field">
-            <input  name="zip_code"
+            <Input  name="zip_code"
                     type="text"
                     defaultValue={zip_code}
                    
-                    ref={register({required: true})}
+                    
                     aria-label="zip_code"
-                    aria-required="true" 
+                    aria-required="false" 
                     />
+          </div>
+        ],
+        [
+          "Gender & Matching",
+          <div id="gender-form">
+            I am a  
+            <Input  name='gender' list='gender' placeholder='Choose Your Gender...' 
+                    aria-label="my-gender"
+                    aria-required="false"
+                    />
+              <datalist id='gender'>
+                <option value='Male'>Male</option>
+                <option value='Female'>Female</option>
+                <option value='Other'>Other</option>
+              </datalist>
+                and I want to match with
+            <Input  name='match_gender' list='match-gender' placeholder='Choose Gender to Match...' 
+                    aria-label="my-gender"
+                    aria-required="false"
+                    />
+              <datalist id='match-gender'>
+                <option value='Male'>Males</option>
+                <option value='Female'>Females</option>
+                <option value='Other'>Other</option>
+                <option value='Any'>Any</option>
+              </datalist>
           </div>
         ],
         [
           "Bio",
           <div className="field">
-            <input  name="bio"
+            <Input  name="bio"
                     type="text"
-                    defaultvalue={bio} 
-                    ref={register({required: true})}
+                    defaultValue={bio} 
+                    ref={register()}
                     aria-label="bio"
-                    aria-required="true" 
+                    aria-required="false" 
                     />
           </div>
         ]      
@@ -92,16 +137,20 @@ const AccountDetailsGrid = (props) =>
         ["First Name",first],
         ["Last Name",last],
         ["Zip Code",zip_code],
-        ["Bio",bio]      
+        [`Gender`,gender],
+        ["Matching With",match_gender],
+        ["Bio",bio],
       ]
     }    
     const allFields = fields.concat(conditionalFields)
-    return allFields.map((field) => <AccountDetailsRow field={field}/>)
+    let i = 0;
+    return allFields.map((field) => <AccountDetailsRow field={field} key={`acct-details-row-` + i++}/>)
    
   } 
 
   const onSubmit = (data) =>
   {
+    debugger;
     fetch(USERS_URL + "update/",configObj("PATCH",true,{user: data}))
     .then(r => r.json())
     .then(data  =>  props.setCurrentUser(data.data.attributes))
@@ -126,9 +175,16 @@ const AccountDetailsGrid = (props) =>
 
   return(
     <>
-      <h2>Basic Info:</h2> 
-      <h4><i>Note: Editing name flags account to be unverified.</i></h4>
-      <h4><i>Please allow 24 hours after updates for verification.</i></h4>
+      <Grid columns={2}>
+        <Grid.Column>
+          <h2>Basic Info:</h2> 
+          <h4><i>Note: Editing name flags account to be unverified.</i></h4>
+          <h4><i>Please allow 24 hours after updates for verification.</i></h4>
+        </Grid.Column>
+        <Grid.Column>
+          <CaretakerForm />
+        </Grid.Column>
+      </Grid>      
       <form className="ui form" onSubmit={handleSubmit(onSubmit)}>
         <Grid celled columns={2} className="account-grid">
           {renderRows()}

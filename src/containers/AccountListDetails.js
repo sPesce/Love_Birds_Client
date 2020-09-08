@@ -9,9 +9,6 @@ import {setDisabilities} from '../actions/disabilities'
 
 const AccountListDetails = (props) =>
 {
-
-  const interests = ["detail1", "detail2", "detail3"]
-  
   const onAddInterest = (interest) =>
   {
     fetch(INTERESTS_URL,configObj("POST",true,interest))
@@ -65,16 +62,16 @@ const AccountListDetails = (props) =>
 
     return (
       <form key={2} onSubmit={handleSubmit2(onAddDisability)}>
-        <p><i>Note: Disabilities are private to you and your caretaker.</i></p>
         <div className="field">
           <input name="disability"
             type="text"
             ref={register2({ required: true })}
             aria-label="disability"
             aria-required="true"
-          />
+            />
         </div>
         <Button submit primary>Add Disability</Button>
+        <p><i>Note: Disabilities are private to you and your caretaker.</i></p>
       </form>
     )
   }

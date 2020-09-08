@@ -1,27 +1,32 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import {useHistory} from 'react-router-dom'
-import {USERS_URL} from '../constants/URL.js'
+import {AUTH_URL} from '../constants/URL.js'
 import configObj from '../helpers/configObj.js'
 import {Button} from 'semantic-ui-react'
 
-const SignupForm = (props) => {
+const LoginForm = (props) => {
   
   const history = useHistory()
   const onSubmit = data => 
   {
-    fetch(USERS_URL,configObj("POST",false,{user: data}))
+    fetch(AUTH_URL,configObj("POST",true,{user: data}))
     .then(r => r.json())
     .then(user => {
-      localStorage.token = user.token
-      history.push("/dashboard/")
+      if(user.error)
+        alert(user.error)
+      else
+      {
+        localStorage.token = user.token
+        history.push("/dashboard/")
+      }
     });
   }
   
   const { register, handleSubmit, watch, errors } = useForm();
   return (
     <form className={"ui form"} onSubmit={handleSubmit(onSubmit)}>
-      <h2>Signup</h2>
+      <h2>Sign In</h2>
       <div className="field">
         <label htmlFor="email" >Email Address</label>
         <input  name="email"
@@ -33,7 +38,7 @@ const SignupForm = (props) => {
         {errors.email && <span>This field is required</span>}
       </div>
       <div className="field">
-        <label htmlFor="password">Create Password</label>
+        <label htmlFor="password">Password</label>
         <input  name="password"
                 type="password" 
                 ref={register({ required: true })} 
@@ -41,23 +46,11 @@ const SignupForm = (props) => {
                 aria-required="true"
                 />
         {errors.password && <span>This field is required</span>}
-      </div>
-      <div className="field">        
-        <label htmlFor="caretaker">Caretaker</label>
-        <input
-            key={"caretaker"}
-            type="checkbox"
-            name="caretaker"
-            defaultChecked={false}
-            ref={register}
-            aria-label="caretaker"
-            aria-required="false"
-          />
-      </div> 
-      <Button color='violet' submit>Create Account</Button>  
+      </div>      
+      <Button color='violet' submit>Login</Button>
     </form>
   );
 }
 
 
-export default SignupForm;
+export default LoginForm;

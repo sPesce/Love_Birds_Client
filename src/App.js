@@ -1,7 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import Signup from './containers/Signup'
+import SignupLogin from './containers/SignupLogin'
 import Account from './containers/Dashboard'
 import Dashboard from './containers/Dashboard'
 import {BrowserRouter, Route, Switch} from 'react-router-dom'
@@ -18,7 +18,7 @@ function App() {
           <Dashboard/>
         </Route>
         <Route path='/'>
- 0         <Signup/>
+ 0         <SignupLogin/>
         </Route>
       </Switch>
     </BrowserRouter>
