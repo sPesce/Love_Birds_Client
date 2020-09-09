@@ -1,20 +1,25 @@
 import React from 'react'
+import {connect} from 'react-redux'
 
 import AccountDetailsGrid from './AccountDetailsGrid'
 import AccountListDetails from './AccountListDetails.js'
 
-const AccountDetailsTab = () =>
+const AccountDetailsTab = ({currentUser}) =>
 {
   
-
+  const isStandard = currentUser.account_type === "standard"
+  console.log("standard?: ",isStandard)
   return(
     <> 
       <AccountDetailsGrid />
-      <AccountListDetails /> 
+      {isStandard && <AccountListDetails />} 
     </>
     )
 }
 
+const mapStateToProps = state =>
+{
+  return {currentUser: state.currentUser}
+}
 
-
-export default AccountDetailsTab;
+export default connect(mapStateToProps)(AccountDetailsTab);

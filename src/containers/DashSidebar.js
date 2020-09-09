@@ -95,6 +95,7 @@ const DashboardSidebar = props => {
         <Menu fluid vertical tabular>      
           {props.currentUser && mapMenuItems()}   
         </Menu>
+        {props.currentUser.pic && <img src={props.currentUser.pic} alt="my-profile-pic"/> }
       </Grid.Column>
       <DashTabs />
     </Grid>

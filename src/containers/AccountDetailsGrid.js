@@ -17,13 +17,15 @@ const AccountDetailsGrid = (props) =>
 
   
   useEffect(() => {
-    register({name: 'first'}, { required: false });
-    register({name: 'last'}, { required: false });
-    register({name: 'zip_code'}, { required: false });
-    register({name: 'gender'}, { required: false });
-    register({name: 'match_gender'}, { required: false });
-    register({name: 'bio'}, { required: false });
-
+    register({name: 'first'}, { required: true });
+    register({name: 'last'}, { required: true });
+    if(props.currentUser.account_type === 'standard')
+    {
+      register({name: 'zip_code'}, { required: true });
+      register({name: 'gender'}, { required: true });
+      register({name: 'match_gender'}, { required: true });
+      register({name: 'bio'}, { required: true });
+    }
   }, []);
 
   const renderRows = () =>
@@ -51,11 +53,12 @@ const AccountDetailsGrid = (props) =>
 
     if(editing)
     {
-      conditionalFields = 
+      const anyUserFields = 
       [
         [
           "First Name",
           <div className="field">
+            {errors.first && <span>First Name is Required</span>}
             <Input  name="first"
                     type="text"
                     defaultValue={first} 
@@ -68,6 +71,7 @@ const AccountDetailsGrid = (props) =>
         [
           "Last Name",
           <div className="field">
+          {errors.last && <span>Last Name is Required</span>}
             <Input  name="last"
                     type="text"
                     defaultValue={last} 
@@ -76,10 +80,14 @@ const AccountDetailsGrid = (props) =>
                     aria-required="false" 
                     />
           </div>
-        ],
+        ]
+      ]
+      const standardOnlyFields = 
+      [
         [
           "Zip Code",
           <div className="field">
+          {errors.zip_code && <span>5 digit Zip code is Required</span>}
             <Input  name="zip_code"
                     type="text"
                     defaultValue={zip_code}
@@ -91,7 +99,9 @@ const AccountDetailsGrid = (props) =>
         ],
         [
           "Gender & Matching",
-          <div id="gender-form">
+          <div>
+          {errors.gender && <span>Please select your gender</span>}
+          {errors.match_gender && <span>Please Select the gender you are matching with</span>}
             I am a  
             <Input  name='gender' list='gender' placeholder={gender ? gender : 'Choose Your Gender...'} 
                     aria-label="my-gender"
@@ -131,18 +141,33 @@ const AccountDetailsGrid = (props) =>
           </div>
         ]      
       ]
+      
+      if(account_type === "standard")
+        conditionalFields = [...anyUserFields,...standardOnlyFields]
+      else
+        conditionalFields = [...anyUserFields]
     }
     else
     {
-      conditionalFields = 
+      const anyUserFields = 
       [
         ["First Name",first],
-        ["Last Name",last],
-        ["Zip Code",zip_code],
-        [`Gender`,gender],
-        ["Matching With",match_gender],
-        ["Bio",bio],
-      ]
+        ["Last Name",last]        
+      ]      
+      
+      if (account_type === 'standard')
+      {
+        conditionalFields  =
+        [
+          ...anyUserFields,
+          ["Zip Code",zip_code],
+          [`Gender`,gender],
+          ["Matching With",match_gender],
+          ["Bio",bio]
+        ]
+      }else
+        conditionalFields = [...anyUserFields]
+      
     }    
     const allFields = fields.concat(conditionalFields)
     let i = 0;
@@ -152,7 +177,6 @@ const AccountDetailsGrid = (props) =>
 
   const onSubmit = (data) =>
   {
-    debugger;
     fetch(USERS_URL + "update/",configObj("PATCH",true,{user: data}))
     .then(r => r.json())
     .then(data  =>  props.setCurrentUser(data.data.attributes))

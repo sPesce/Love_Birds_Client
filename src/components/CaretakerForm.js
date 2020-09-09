@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {useState} from 'react'
 import {connect} from 'react-redux'
 import {useForm} from 'react-hook-form'
 import {Button,Form} from 'semantic-ui-react'
@@ -12,11 +12,22 @@ const CaretakerForm = (props) => {
     mode: "onBlur"
   });
 
+  const [fetchErr,setFetchErr] = useState('')
+
   const addCaretaker = (email) =>
   {
     fetch(ADD_CARETAKER,configObj("POST",true,email))
     .then(r => r.json())
-    .then(caretaker => props.setCaretaker(caretaker))
+    .then(caretaker => {
+      if(caretaker.error)
+        setFetchErr(caretaker.error)
+      else
+      {
+        props.setCaretaker(caretaker);
+        setFetchErr('');
+      }
+    })
+    .catch(error => setFetchErr(error.message))
   }
 
   const handleClick = () =>
@@ -45,6 +56,7 @@ const CaretakerForm = (props) => {
     return (
       <Form onSubmit={handleSubmit(addCaretaker)}>
         <Form.Field>
+          <p>{fetchErr}</p>
           <label htmlFor="email">{isCaretaker ? "Request caretaker of user by email:" : "Add caretaker's email:"}</label>
           <input  name="email"
                 type="text" 

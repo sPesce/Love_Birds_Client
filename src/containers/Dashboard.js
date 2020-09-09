@@ -11,8 +11,9 @@ import {setInterests} from '../actions/interests'
 
 class Dashboard extends Component
 {
+  //move me to HoC or create a helper
   componentDidMount(){
-    (!localStorage.token && history.push('/landing/'))
+    (!localStorage.token && history.push('/'))
     fetch(URL + "find_user/", configObj("GET",true))
     .then(r => r.json())
     .then(data => {
