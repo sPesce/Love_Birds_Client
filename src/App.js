@@ -10,6 +10,7 @@ import {connect} from 'react-redux'
 import {URL} from './constants/URL'
 import configObj from './helpers/configObj'
 
+
 const App = (props) => {
 
   const [logged,setLogged] = useState(false)
@@ -17,7 +18,7 @@ const App = (props) => {
   useEffect(() => {
     fetch(URL + "find_user/", configObj("GET",true))
     .then(r => r.json())
-    .then(() => setLogged(true))
+    .then((data) => setLogged(true))
     .catch(() => setLogged(false))
   }, []);
 
@@ -31,7 +32,7 @@ const App = (props) => {
           <Dashboard/>
         </Route>
         <Route path='/'>
- 0         <SignupLogin/>
+          <SignupLogin/>
         </Route>
       </Switch>
       {/* {!logged && <Redirect to="/"/>} */}

@@ -1,9 +1,11 @@
 import React from 'react'
-import {Card} from 'semantic-ui-react'
+import {Card,Grid,Button,Icon,Image} from 'semantic-ui-react'
 import {connect} from 'react-redux'
 import {setCurrentUser} from '../actions/currentUser'
+import configObj from '../helpers/configObj'
+import {SEND_MATCH} from '../constants/URL'
 
-const MatchCard = ({match,interests,currentUser,disabilities}) =>
+const MatchCard = ({match,interests,currentUser,disabilities,remove,matchId}) =>
 {
   const sharesInterests = () =>
   {
@@ -45,13 +47,31 @@ const MatchCard = ({match,interests,currentUser,disabilities}) =>
     if(any)
     return any ? ("Share: " + header.join(" | ")) : ""  
   }
+
+  const matchHandler = () =>
+  {
+    fetch(SEND_MATCH,configObj("POST",true,{user:{email: match.email}}))
+    .then(r => r.json())
+    .then(() => remove(matchId))
+  }
   
-  return <Card
-  image={match.pic}
-  header={fullName(match.first,match.last)}
-  meta={sharesInterests()}
-  description={match.bio}
-/>
+  return <Card>
+      <Image src={match.pic} wrapped ui={false}/>
+      <Card.Content header={fullName(match.first,match.last)}/>
+      <Card.Content meta={sharesInterests()} />
+      <Card.Content description={match.bio} />
+      <Card.Content extra>
+        <Grid columns={2}>
+          <Grid.Column >
+            <Button circular icon='heart' onClick={() => matchHandler()}></Button>
+          </Grid.Column>
+          <Grid.Column >
+            <Button circular >X</Button>
+          </Grid.Column>
+        </Grid>
+      </Card.Content>
+      
+    </Card>
 }
 
 const fullName = (first,last) =>

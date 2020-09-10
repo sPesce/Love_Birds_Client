@@ -7,6 +7,7 @@ import {connect} from 'react-redux'
 import {setCurrentUser} from '../actions/currentUser'
 import {setDisabilities} from '../actions/disabilities'
 import {setInterests} from '../actions/interests'
+import {setMatches} from '../actions/matches'
 
 
 class Dashboard extends Component
@@ -17,7 +18,6 @@ class Dashboard extends Component
     fetch(URL + "find_user/", configObj("GET",true))
     .then(r => r.json())
     .then(data => {
-      console.log(data)
       const userData = data.data.attributes      
       this.props.setCurrentUser(userData)
       if(userData.account_type === "standard")
@@ -35,7 +35,15 @@ class Dashboard extends Component
         this.props.setInterests(interests);
         this.props.setDisabilities(disabilities);        
       }
-    })  
+    })
+    
+    fetch(URL + 'matches/',configObj("GET",true))
+    .then(r => r.json())
+    .then(({matches}) => {
+      debugger;
+
+      this.props.setMatches(matches)
+    }) 
   };
   render(){
     const {user} = this.props
@@ -52,5 +60,5 @@ class Dashboard extends Component
     return {user: state.user}
   }
   
-  export default connect(mapStateToProps,{setCurrentUser,setDisabilities,setInterests})(Dashboard);
+  export default connect(mapStateToProps,{setCurrentUser,setDisabilities,setInterests,setMatches})(Dashboard);
   

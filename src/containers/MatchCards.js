@@ -1,16 +1,22 @@
 import React from 'react'
 import MatchCard from '../containers/MatchCard'
 
-const MatchCards = ({matches}) =>
+const MatchCards = ({matches,remove}) =>
 {
-  console.log(matches)
   const renderCards = () =>
   {
-    let i = 0;
-    return matches.map(match => <MatchCard key={`user-card-${i++}`} match={match}/>)
+    if(matches)
+    {
+      return matches.map((match,i) => {
+        return <MatchCard key={`user-card-${i}`} match={match} matchId={i} remove={remove}></MatchCard>
+      })
+    }
   }
 
-  return <div> {renderCards()} </div>
+  if (matches)
+    return <div> {renderCards()} </div>
+  else
+    return <div></div>
 }
 
 export default MatchCards;

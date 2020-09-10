@@ -17,7 +17,7 @@ const DashboardSidebar = props => {
     .then( caretaker => {
       if(!caretaker.error)
         props.setCaretaker(caretaker)
-    })
+    })    
   },[]);
 
   const setColor = ( name , inactiveColor ) => 
@@ -27,49 +27,73 @@ const DashboardSidebar = props => {
   const history = useHistory()
   const active = props.currentTab
   const user = props.currentUser
+  let userNotificationCount = user.notifications ? user.notifications.length : 0
+  let matchCount = 0;
+  let careNotificationCount = 0;
+  
+  props.matches.forEach((match) => {
+    if(match.sender_status === 2)
+    {
+      (match.reciever_status === 0) && userNotificationCount++;
+      (match.reciever_status === 2) && matchCount++;
+    }
+    
+  })
+  
+  if(props.caretaker && props.caretaker.accepted)
+  {
+    const care = props.caretaker
+    if(care.accepted === user.email)
+      careNotificationCount = 1;
+    else if(care.accepted === care.email)
+      careNotificationCount = 1; 
+  }
+
+  const notificationCount = userNotificationCount + careNotificationCount
 
   const getTitles = () =>
-{
-  const {account_type} = user
+  {
+    const {account_type} = user
 
-  const titles = {
-    standard: 
-    [
-      {
-        title: "notifications",
-        icon: <Label color={setColor('notifications','red')} key={"notification-label"}>
-          {user.notifications && user.notifications.length}</Label>},
-      {
-        title: "account details", 
-        icon: null
-      },
-      {
-        title: "matches", 
-        icon: <Label color={setColor('matches','teal')} key="matches label">1</Label>
-      },
-      {
-        title: "find matches",
-        icon: null
-      }
-    ],
-    caretaker:
-    [
-      {
-        title: "notifications",
-        icon: <Label color={setColor('notifications','red')}key="notifications label">
-          {user.notifications && user.notifications.length}</Label>},
-      {
-        title: "account details", 
-        icon: null
-      },
-      {
-        title: "activity", 
-        icon: <Label color={setColor('activity','teal')}key="activity label">10</Label>
-      }      
-    ]
+    const titles = {
+      standard: 
+      [
+        {
+          title: "notifications",
+          icon: <Label color={setColor('notifications','red')} key={"notification-label"}>
+            {notificationCount}</Label>
+        },
+        {
+          title: "account details", 
+          icon: null
+        },
+        {
+          title: "matches", 
+        icon: <Label color={setColor('matches','teal')} key="matches label">{matchCount}</Label>
+        },
+        {
+          title: "find matches",
+          icon: null
+        }
+      ],
+      caretaker:
+      [
+        {
+          title: "notifications",
+          icon: <Label color={setColor('notifications','red')}key="notifications label">
+            {user.notifications && (user.notifications.length)}</Label>},
+        {
+          title: "account details", 
+          icon: null
+        },
+        {
+          title: "activity", 
+          icon: <Label color={setColor('activity','teal')}key="activity label">10</Label>
+        }      
+      ]
+    }
+    return titles[account_type]
   }
-  return titles[account_type]
-}
   
   const mapMenuItems = () =>
   {
@@ -109,7 +133,8 @@ const mapStateToProps = (state) =>
   return {
     currentTab: state.currentTab,
     currentUser: state.currentUser,
-    caretaker: state.caretaker
+    caretaker: state.caretaker,
+    matches: state.matches
   }
 }
 

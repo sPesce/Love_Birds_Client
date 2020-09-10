@@ -2,7 +2,7 @@ import React from "react"
 import {Grid,Segment} from 'semantic-ui-react'
 import {connect} from 'react-redux'
 import AccountDetailsTab from './AccountDetailsTab'
-import MatchesTab from '../components/MatchesTab'
+import MatchesTab from './MatchesTab'
 import NotificationsTab from '../components/NotificationsTab'
 import {Redirect} from 'react-router-dom'
 

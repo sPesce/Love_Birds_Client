@@ -5,7 +5,7 @@ const distanceOptions = [
   {
     key: 'Any',
     text: 'any',
-    value: null
+    value: '999999999999999'
   },
   {
     key: '5 miles',
