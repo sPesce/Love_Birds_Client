@@ -1,12 +1,14 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { useForm } from 'react-hook-form'
-import {useHistory} from 'react-router-dom'
+import {useHistory,Redirect} from 'react-router-dom'
 import {USERS_URL} from '../constants/URL.js'
 import configObj from '../helpers/configObj.js'
 import {Button} from 'semantic-ui-react'
 
 const SignupForm = (props) => {
   
+  const [logged,setLogged] = useState(false)
+
   const history = useHistory()
   const onSubmit = data => 
   {
@@ -14,13 +16,14 @@ const SignupForm = (props) => {
     .then(r => r.json())
     .then(user => {
       localStorage.token = user.token
-      history.push("/dashboard/")
+      setLogged(true)
     });
   }
   
   const { register, handleSubmit, watch, errors } = useForm();
   return (
     <form className={"ui form"} onSubmit={handleSubmit(onSubmit)}>
+      {logged && <Redirect to="/dashboard/"/>}
       <h2>Signup</h2>
       <div className="field">
         <label htmlFor="email" >Email Address</label>

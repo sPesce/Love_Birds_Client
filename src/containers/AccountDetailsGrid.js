@@ -103,10 +103,11 @@ const AccountDetailsGrid = (props) =>
           {errors.gender && <span>Please select your gender</span>}
           {errors.match_gender && <span>Please Select the gender you are matching with</span>}
             I am a  
-            <Input  name='gender' list='gender' placeholder={gender ? gender : 'Choose Your Gender...'} 
+            <Input  name='gender' list='gender'  
                     aria-label="my-gender"
                     aria-required="false"
                     onChange={(e) => handleChange(e)}
+                    defaultValue={gender}
                     />
               <datalist id='gender'>
                 <option value='Male'>Male</option>
@@ -114,7 +115,8 @@ const AccountDetailsGrid = (props) =>
                 <option value='Other'>Other</option>
               </datalist>
                 and I want to match with
-            <Input  name='match_gender' list='match-gender' placeholder={match_gender ? match_gender : 'Choose Gender to Match...'} 
+            <Input  name='match_gender' list='match-gender'
+                    defaultValue={match_gender} 
                     aria-label="my-gender"
                     aria-required="false"
                     onChange={(e) => handleChange(e)}

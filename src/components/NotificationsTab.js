@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Button} from 'semantic-ui-react'
+import {Button,Grid} from 'semantic-ui-react'
 import {URL} from '../constants/URL'
 import configObj from '../helpers/configObj'
 import {updateMatch} from '../actions/matches'
@@ -10,29 +10,9 @@ const NotificationsTab = ({notifications,matches,caretaker,updateMatch,currentUs
   const renderNotifications = () =>
   {
     const myNotifications = notifications ? notifications.map(note => <li key={`li-${note}`}>{note}</li> ) : []
-    if(matches)
-    {
-      console.log(matches)
-      for(let i = 0; i < matches.length ; i++)
-      {
-        const match = {...matches[i]}
-        if(match.sender_status === 2 && match.reciever_status === 0)
-        {
-          console.log("pushing")
-          myNotifications.push(
-            <li key={`match${i}`}>
-              {`${match.sender_name} wants to match!`}
-              <Button color="blue" onClick={() => acceptMatch(true,match.id)}>Accept</Button>
-              <Button color="red" onClick={() => acceptMatch(false,match.id)}>Deny</Button>
-              <Button >View Profile</Button>
-            </li>
-          )
-        }
-      }
-    }
+    
     if(caretaker && caretaker.accepted && currentUser && caretaker.accepted !== "BOTH" )
     { 
-      debugger;
       let careMessage = ""
       const {accepted} = caretaker
       if(accepted === caretaker.user)
@@ -53,7 +33,43 @@ const NotificationsTab = ({notifications,matches,caretaker,updateMatch,currentUs
     }
     
     return myNotifications;
-  }  
+  }
+  
+  //these have buttons, so they will be in a grid to style
+  const renderGridNotifications = () => {
+    const myNotifications = []
+    if(matches)
+    {
+      console.log(matches)
+      for(let i = 0; i < matches.length ; i++)
+      {
+        const match = {...matches[i]}
+        if(match.sender_status === 2 && match.reciever_status === 0)
+        {
+          console.log("pushing")
+          myNotifications.push(
+            
+              <Grid.Row>
+                <Grid.Column verticalAlign='middle' width={3}>
+                  <strong>{`${match.sender_name} wants to match!`}</strong>
+                </Grid.Column>
+                <Grid.Column width={2} >
+                  <Button color="blue" onClick={() => acceptMatch(true,match.id)}>Accept</Button>
+                </Grid.Column>
+                <Grid.Column width={2}>
+                  <Button color="red" onClick={() => acceptMatch(false,match.id)}>Deny</Button>
+                </Grid.Column>
+                <Grid.Column width={3}>
+                  <Button >View Profile</Button>
+                </Grid.Column>
+              </Grid.Row>
+            
+          )
+        }
+      }
+    }
+    return myNotifications
+  }
 
   const acceptMatch = (flag,m_id) =>
   {
@@ -70,6 +86,9 @@ const NotificationsTab = ({notifications,matches,caretaker,updateMatch,currentUs
       <ul>
         {renderNotifications()}
       </ul>
+      <Grid columns={4}>
+        {renderGridNotifications()}
+      </Grid>
     </div>
   )
 }

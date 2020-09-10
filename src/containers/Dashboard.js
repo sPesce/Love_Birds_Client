@@ -40,8 +40,6 @@ class Dashboard extends Component
     fetch(URL + 'matches/',configObj("GET",true))
     .then(r => r.json())
     .then(({matches}) => {
-      debugger;
-
       this.props.setMatches(matches)
     }) 
   };
