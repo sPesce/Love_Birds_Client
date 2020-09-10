@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import AccountDetailsTab from './AccountDetailsTab'
 import MatchesTab from './MatchesTab'
 import NotificationsTab from '../components/NotificationsTab'
+import ChatsTab from '../containers/ChatsTab'
 import {Redirect} from 'react-router-dom'
 
 const DashTabs = ({currentTab}) =>
@@ -15,7 +16,8 @@ const DashTabs = ({currentTab}) =>
       "account details": <AccountDetailsTab />,
       "matches": <MatchesTab />,
       'notifications': <NotificationsTab />,
-      'find matches': <Redirect to="/find_matches/" />
+      'find matches': <Redirect to="/find_matches/" />,
+      'chats': <ChatsTab />
     }
     return renderObj[currentTab];
   }

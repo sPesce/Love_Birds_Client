@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Segment, Label, Menu , Grid} from 'semantic-ui-react'
+import { Segment, Label, Menu , Grid, Image} from 'semantic-ui-react'
 import DashTabs from './DashTabs'
 import {setCurrentTab} from '../actions/currentTab'
 import {setCaretaker} from '../actions/caretaker'
@@ -74,6 +74,10 @@ const DashboardSidebar = props => {
         {
           title: "find matches",
           icon: null
+        },
+        {
+          title: "chats",
+          icon: null
         }
       ],
       caretaker:
@@ -116,10 +120,10 @@ const DashboardSidebar = props => {
   return (
     <Grid>
       <Grid.Column width={4}>
-        <Menu fluid vertical tabular>      
+        <Menu inverted vertical fluid >      
           {props.currentUser && mapMenuItems()}   
         </Menu>
-        {props.currentUser.pic && <img src={props.currentUser.pic} alt="my-profile-pic"/> }
+        {props.currentUser.pic && <Image src={props.currentUser.pic}  alt="my-profile-pic" circular id='dash-img'/> }
       </Grid.Column>
       <DashTabs />
     </Grid>

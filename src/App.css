@@ -39,5 +39,60 @@
 div.cell.list
 {
   padding-left: 25px;
+  border-left-width: 0px;
 }
 
+.chat{
+  border-color: blue;
+  border-style: solid;
+  padding-left: 0%;
+}
+
+#chat-page{
+  height: 800px;
+}
+
+#dash-img{
+  text-align: center;
+}
+
+#chat-div{
+  width: 400px;
+  border-color: blue;
+  border-style: solid;
+  height: 400px;
+   
+}
+
+#chat-content{
+  height: 80%;
+  background-color: #61dafb;
+  overflow: scroll;
+  max-height: 400px;
+  display: flex;
+  flex-direction: column-reverse
+}
+
+#chat-input{
+  height: 20%;
+}
+
+#chat-input-field{
+  width: 80%;
+}
+
+
+
+#submit-chat{
+  margin-right: 0px;
+  width: 20%;
+  height: 100%;
+}
+
+#chat-modal-actions{
+  height: 10%
+}
+
+#chat-modal{
+  overflow: auto;
+}
