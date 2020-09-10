@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Button,Grid} from 'semantic-ui-react'
+import {Button,Grid, Container} from 'semantic-ui-react'
 import {URL} from '../constants/URL'
 import configObj from '../helpers/configObj'
 import {updateMatch} from '../actions/matches'
@@ -9,11 +9,23 @@ const NotificationsTab = ({notifications,matches,caretaker,updateMatch,currentUs
 {
   const renderNotifications = () =>
   {
-    const myNotifications = notifications ? notifications.map(note => <li key={`li-${note}`}>{note}</li> ) : []
+    let myNotifications = [];
+    if(notifications && notifications[0])
+    {
+      notifications.map(note => {
+        return( 
+        <Grid.Row key={`li-${note}`}>
+          <Grid.Column>
+            <strong>{note}</strong>
+          </Grid.Column>
+        </Grid.Row>
+      ) 
+      })
+    }
     
+    let careMessage = "test"//change me
     if(caretaker && caretaker.accepted && currentUser && caretaker.accepted !== "BOTH" )
     { 
-      let careMessage = ""
       const {accepted} = caretaker
       if(accepted === caretaker.user)
       {
@@ -29,9 +41,17 @@ const NotificationsTab = ({notifications,matches,caretaker,updateMatch,currentUs
         else//I sent the message, i am caretaker
           careMessage = `You have requested to be listed as ${caretaker.user}'s caretaker, awaiting their approval`
       }
-      myNotifications.push( <li key='care-request'>{careMessage}</li> )
     }
-    
+    myNotifications.push( 
+      <>
+        <Grid.Row className='notification-row'>
+          <Grid.Column>
+            <strong>{careMessage}</strong>
+          </Grid.Column>
+        </Grid.Row>  
+        <div class="ui clearing divider"></div>
+      </>
+    )
     return myNotifications;
   }
   
@@ -40,7 +60,6 @@ const NotificationsTab = ({notifications,matches,caretaker,updateMatch,currentUs
     const myNotifications = []
     if(matches)
     {
-      console.log(matches)
       for(let i = 0; i < matches.length ; i++)
       {
         const match = {...matches[i]}
@@ -48,9 +67,9 @@ const NotificationsTab = ({notifications,matches,caretaker,updateMatch,currentUs
         {
           console.log("pushing")
           myNotifications.push(
-            
-              <Grid.Row>
-                <Grid.Column verticalAlign='middle' width={3}>
+            <>
+              <Grid.Row className='notification-row' key={`${i}notification`}>
+                <Grid.Column verticalAlign='middle' width={5}>
                   <strong>{`${match.sender_name} wants to match!`}</strong>
                 </Grid.Column>
                 <Grid.Column width={2} >
@@ -59,11 +78,12 @@ const NotificationsTab = ({notifications,matches,caretaker,updateMatch,currentUs
                 <Grid.Column width={2}>
                   <Button color="red" onClick={() => acceptMatch(false,match.id)}>Deny</Button>
                 </Grid.Column>
-                <Grid.Column width={3}>
+                <Grid.Column width={4}>
                   <Button >View Profile</Button>
                 </Grid.Column>
               </Grid.Row>
-            
+              <div class="ui clearing divider"></div>
+            </>            
           )
         }
       }
@@ -81,15 +101,16 @@ const NotificationsTab = ({notifications,matches,caretaker,updateMatch,currentUs
   }
 
   return (
-    <div>
+    <Container id='notifications-tab'>
       <h2>Notifications:</h2>
-      <ul>
+      <Grid columns={1}>
         {renderNotifications()}
-      </ul>
+      </Grid>
+      
       <Grid columns={4}>
         {renderGridNotifications()}
       </Grid>
-    </div>
+    </Container>
   )
 }
 

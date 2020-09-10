@@ -46,9 +46,7 @@ class Dashboard extends Component
   render(){
     const {user} = this.props
     return(
-      <div>
         <DashSidebar />
-      </div>
       ) 
     }
   }

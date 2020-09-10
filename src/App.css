@@ -1,3 +1,7 @@
+body{
+  background-color: #daa2ff;
+}
+
 .App {
   text-align: center;
 }
@@ -53,7 +57,8 @@ div.cell.list
 }
 
 #dash-img{
-  text-align: center;
+  margin-left: 30%;
+  display: block;
 }
 
 #chat-div{
@@ -96,3 +101,89 @@ div.cell.list
 #chat-modal{
   overflow: auto;
 }
+
+#landing-logo{
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+#landing-container{
+  background-image:  linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 1)), url('./images/mccawBccaw.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center center;
+  height: 90vh;
+  padding-top: 20%;
+}
+
+#nav-main{
+  margin-bottom: 0px;
+  border-radius: 0px;
+  border-bottom: 3px solid #9900ff;
+  
+}
+
+#landing-content{
+  width: 15%;
+  background-color: white;
+  height: 35%;
+  margin-left: 0px;
+  margin-right: 0px;
+  border-radius: 20px;
+  box-shadow: 0 0 0 2px #000000, 0 1px 1px 0 #000000, 4px 4px 10px 0 #750085;
+  background-color: #eed4ff;
+
+}
+
+.footer {
+  border: 1px solid#DCDCDC;
+  box-shadow: 0 0 0 3px #9900ff, 0 2px 4px 0 rgba(34,36,38,.12), 0 2px 10px 0 rgba(34,36,38,.15);
+  bottom: 0;
+  height: 10vh;
+  width: 100%;
+  background-color: #1b1c1d;
+  display: flex;
+  align-items: center;
+  justify-content:center;
+  position: absolute;
+}
+
+.center {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  justify-content: center;
+}
+.icons {
+  align-self: center;
+}
+
+h4#footer-h4{
+  color: white;
+}
+
+#nav-logo{
+  border-radius: 30px;
+  background-color: white;
+  padding-left: 1px;
+  margin-left: 2px;
+}
+
+#main-dash-grid{
+  padding-top: 0px;
+}
+
+#dash-sidebar{
+  padding-left: 0%;
+  margin-left: 1%;
+}
+
+#left-column{
+  margin-top: 0px;
+  background-color: black;
+}
+
+
+

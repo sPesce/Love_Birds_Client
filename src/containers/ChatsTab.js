@@ -23,7 +23,7 @@ const ChatsTab = (props) =>
   }
 
   return <Grid columns={2} id='chat-page'>
-          <Grid.Column width={3}>
+          <Grid.Column width={5}>
            <ul>
               {generateNameList()}
           </ul>
