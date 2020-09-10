@@ -10,12 +10,14 @@ import {setCurrentUser} from '../actions/currentUser'
 import {setDisabilities} from '../actions/disabilities'
 import {setInterests} from '../actions/interests'
 import {setMatches} from '../actions/matches'
-
+import MatchModal from './MatchModal'
 const FindMatches = props =>
 {
   //non accepted matches, only list of users
   const [matches,setMatches] = useState([])
   const [distance,setDistance] = useState("")
+  const [open, setOpen] = React.useState(false)
+  //const [hardClose,setHardClose] = useState(false)
 
   const removeMatch = (id) =>
   {
@@ -33,7 +35,8 @@ const FindMatches = props =>
     .then(r => r.json())
     .then(matches => {
       setMatches(matches)
-      console.log(matches)
+      if(matches[0])
+        setOpen(true)
     }
       )
   }
@@ -41,9 +44,12 @@ const FindMatches = props =>
 
   return <Container>
     <DistanceForm distance={distance} onChange={setAndFetch} />
-    {matches[0] && <MatchCards matches={matches} remove={removeMatch} distance={distance}/>}
-    {!matches[0] && distance && <><br/><br/><h2>Sorry, not matches in your area.</h2></> }
+    {matches[0] && <MatchModal matches={matches} open={open} remove={removeMatch}/>}
+    
   </Container>
 }
 
 export default connect(null,{setMatches,setCurrentUser,setDisabilities,setInterests})(FindMatches);
+
+// {matches[0] && <MatchCards matches={matches} remove={removeMatch} distance={distance}/>}
+//     {!matches[0] && distance && <><br/><br/><h2>Sorry, not matches in your area.</h2></> }

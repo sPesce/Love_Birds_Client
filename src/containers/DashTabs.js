@@ -2,7 +2,6 @@ import React from "react"
 import {Grid,Segment} from 'semantic-ui-react'
 import {connect} from 'react-redux'
 import AccountDetailsTab from './AccountDetailsTab'
-import MatchesTab from './MatchesTab'
 import NotificationsTab from '../components/NotificationsTab'
 import ChatsTab from '../containers/ChatsTab'
 import {Redirect} from 'react-router-dom'
@@ -14,7 +13,6 @@ const DashTabs = ({currentTab}) =>
     const renderObj = 
     {
       "account details": <AccountDetailsTab />,
-      "matches": <MatchesTab />,
       'notifications': <NotificationsTab />,
       'find matches': <Redirect to="/find_matches/" />,
       'chats': <ChatsTab />
