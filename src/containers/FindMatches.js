@@ -41,8 +41,8 @@ const FindMatches = props =>
 
   return <Container>
     <DistanceForm distance={distance} onChange={setAndFetch} />
-    {matches && <MatchCards matches={matches} remove={removeMatch}/>}
-    {!matches && <p>no matches found</p> }
+    {matches[0] && <MatchCards matches={matches} remove={removeMatch} distance={distance}/>}
+    {!matches[0] && distance && <><br/><br/><h2>Sorry, not matches in your area.</h2></> }
   </Container>
 }
 

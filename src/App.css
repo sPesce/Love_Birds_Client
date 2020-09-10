@@ -172,7 +172,9 @@ h4#footer-h4{
 }
 
 #main-dash-grid{
-  padding-top: 0px;
+  height:89vh;
+  margin-top: 1px;
+  
 }
 
 #dash-sidebar{
