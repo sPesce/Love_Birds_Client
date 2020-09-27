@@ -1,5 +1,5 @@
 <div style="text-align:center">
-  <img align="center" alt="Love Birds" src="https://raw.githubusercontent.com/sPesce/Love_Birds_Client/master/src/images/logoBig.png" />
+  <img  alt="Love Birds" src="https://raw.githubusercontent.com/sPesce/Love_Birds_Client/master/src/images/logoBig.png" />
 </div>
 <p>
   <img alt="Version" src="https://img.shields.io/badge/version-0.1.0-blue.svg?cacheSeconds=2592000" />
