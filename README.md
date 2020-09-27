@@ -1,6 +1,6 @@
-<div style="text-align:center">
-  <img  alt="Love Birds" src="https://raw.githubusercontent.com/sPesce/Love_Birds_Client/master/src/images/logoBig.png" />
-</div>
+<p align="center">
+  <img src="https://raw.githubusercontent.com/sPesce/Love_Birds_Client/master/src/images/logoBig.png"/>
+</p>
 <p>
   <img alt="Version" src="https://img.shields.io/badge/version-0.1.0-blue.svg?cacheSeconds=2592000" />
   <a href="https://choosealicense.com/licenses/mit/" target="_blank">
