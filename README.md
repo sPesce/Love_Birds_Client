@@ -8,7 +8,9 @@
   </a>
 </p>
 
-> summary
+> Love Birds is a dating website created for those with special needs.  With accessibility and saftey as a number one priority,
+caretakers have the ability to create accounts to help manage a user's account. Caretakers, depending on their care level, will have some
+control over the user's account (such as approving a match).
 
 ### 🏠 [Homepage](https://github.com/sPesce/Love_Birds_Client)
 
@@ -24,19 +26,19 @@ back-end [link](https://github.com/sPesce/Love_Birds_Server)
 ## Install
 
 ```sh
-npm install
+yarn install
 ```
 
 ## Usage
 
 ```sh
-npm run start
+yarn start
 ```
 
 ## Run tests
 
 ```sh
-npm run test
+yarn test
 ```
 
 ## Author
