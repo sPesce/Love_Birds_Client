@@ -1,4 +1,4 @@
-export const currentTabReducer = (state = "chats", action) =>
+export const currentTabReducer = (state = "notifications", action) =>
 {
   if(action.type === "SET_CURRENT_TAB")
     return action.currentTab;

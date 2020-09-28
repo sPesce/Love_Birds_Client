@@ -16,7 +16,7 @@ const FindMatches = props =>
   //non accepted matches, only list of users
   const [matches,setMatches] = useState([])
   const [distance,setDistance] = useState("")
-  const [open, setOpen] = React.useState(false)
+  const [open, setOpen] = useState(false)
   //const [hardClose,setHardClose] = useState(false)
 
   const removeMatch = (id) =>
@@ -44,7 +44,7 @@ const FindMatches = props =>
 
   return <Container>
     <DistanceForm distance={distance} onChange={setAndFetch} />
-    {matches[0] && <MatchModal matches={matches} open={open} remove={removeMatch}/>}
+    {matches[0] && <MatchModal matches={matches} open={open} setOpen={setOpen} remove={removeMatch}/>}
     
   </Container>
 }

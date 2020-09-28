@@ -31,10 +31,10 @@ const MatchModal = (props) =>
 
   return (
     <Modal
-      onClose={() => setOpen(false)}
-      onOpen={() => setOpen(true)}
+      onClose={() => props.setOpen(false)}
+      onOpen={() => props.setOpen(true)}
       open={open}
-      trigger={<Button>Show Modal</Button>}
+      trigger={<Button>Open Matches Browser</Button>}
     >
       <Modal.Header>{matches[current].first} </Modal.Header>
       <Modal.Content image>

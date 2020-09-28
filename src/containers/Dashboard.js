@@ -36,10 +36,11 @@ class Dashboard extends Component
         this.props.setDisabilities(disabilities);        
       }
     })
-    
+    if(this.props.account_type && this.props.user.account_type === 'standard')
     fetch(URL + 'matches/',configObj("GET",true))
     .then(r => r.json())
     .then(({matches}) => {
+      if(matches[0] && matches[0].disabilities)
       this.props.setMatches(matches)
     }) 
   };

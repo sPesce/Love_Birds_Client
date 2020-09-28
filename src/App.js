@@ -30,7 +30,6 @@ const App = (props) => {
   return (
     
     <BrowserRouter>
-    {!logged && <Redirect to="/"/>}
     <NavBar logged={logged} setLogged={setLogged}/>
       <Switch>
         <Route path='/find_matches'>

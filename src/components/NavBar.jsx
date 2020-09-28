@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component} from 'react'
 import { Menu } from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
 import logoPic from '../images/logoPic.png'
@@ -45,11 +45,11 @@ export default class NavBar extends Component {
                 active={activeItem === 'Home'}
                 onClick={this.handleItemClick}
             />          
-          { !this.props.logged &&
+          { localStorage.token &&
           [
             <Menu.Item
                 as={Link}
-                to='/dashboard'
+                to='/dashboard/'
                 name='DASHBOARD'
                 active={activeItem === 'Dashboard'}
                 onClick={this.handleItemClick}
@@ -62,13 +62,15 @@ export default class NavBar extends Component {
                 onClick={this.handleItemClick}
             />,
             <Menu.Item
+              as={Link}
+              to='/' 
               className="logout-bttn"
               name='LOGOUT'
               active={activeItem === 'logout'}
               onClick={this.logout}
           />
           ]}
-          {this.props.logged && 
+          {!localStorage.token && 
           [            
             <Menu.Item
                 as={Link}

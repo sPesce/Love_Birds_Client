@@ -47,13 +47,12 @@ div.cell.list
 }
 
 .chat{
-  border-color: blue;
-  border-style: solid;
   padding-left: 0%;
 }
 
 #chat-page{
-  height: 800px;
+  height: 450px;
+  width:  450px;
 }
 
 #dash-img{
@@ -63,15 +62,13 @@ div.cell.list
 
 #chat-div{
   width: 400px;
-  border-color: blue;
-  border-style: solid;
   height: 400px;
    
 }
 
 #chat-content{
   height: 80%;
-  background-color: #61dafb;
+  background-color: #ffffff;
   overflow: scroll;
   max-height: 400px;
   display: flex;
@@ -185,6 +182,10 @@ h4#footer-h4{
 #left-column{
   margin-top: 0px;
   background-color: black;
+}
+
+#match-cards-main{
+
 }
 
 
