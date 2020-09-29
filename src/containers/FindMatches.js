@@ -37,6 +37,7 @@ const FindMatches = props =>
       setMatches(matches)
       if(matches[0])
         setOpen(true)
+      debugger;
     }
       )
   }

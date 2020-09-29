@@ -6,27 +6,7 @@ import configObj from '../helpers/configObj'
 import {updateMatch} from '../actions/matches'
 import {setCaretaker} from '../actions/caretaker'
 
-const careMessage = (caretaker,currentUser) =>
-{
-  if(!!caretaker && (!!caretaker.accepted) && (caretaker.accepted !== "BOTH"))
-  { 
-    const {accepted} = caretaker
-    if( accepted !== "" && accepted === caretaker.user)
-    {
-      if(currentUser.account_type === 'standard')//I sent request, i am standard user
-        return `Awaiting ${caretaker.caretaker} to accept your request to be listed as your caretaker`;
-      else//user sent request, I am caretaker
-        return `${caretaker.user} has listed you as their caretaker, awaiting your approval`;
-    }
-    else//caretaker sent request
-    {
-      if(currentUser.account_type === 'standard')//caretaker sent request, i am standard user
-        return `${caretaker.caretaker} wants to be listed as your caretaker, awaiting your approval`;
-      else//I sent the message, i am caretaker
-        return `You have requested to be listed as ${caretaker.user}'s caretaker, awaiting their approval`;
-    }
-  } else return null;
-}
+
 
 const NotificationsTab = ({matches,caretaker,updateMatch,currentUser,setCaretaker}) =>
 {
@@ -60,16 +40,37 @@ const NotificationsTab = ({matches,caretaker,updateMatch,currentUser,setCaretake
       ) 
       })
     }
-    
-    const careMessage = careMessage(caretaker,currentUser);
 
-    if (careMessage)
+    const careMessage = () =>
+    {
+      if(!!caretaker && (!!caretaker.accepted) && (caretaker.accepted !== "BOTH"))
+      { 
+        const {accepted} = caretaker
+        if( accepted !== "" && accepted === caretaker.user)
+        {
+          if(currentUser.account_type === 'standard')//I sent request, i am standard user
+            return `Awaiting ${caretaker.caretaker} to accept your request to be listed as your caretaker`;
+          else//user sent request, I am caretaker
+            return `${caretaker.user} has listed you as their caretaker, awaiting your approval`;
+        }
+        else//caretaker sent request
+        {
+          if(currentUser.account_type === 'standard')//caretaker sent request, i am standard user
+            return `${caretaker.caretaker} wants to be listed as your caretaker, awaiting your approval`;
+          else//I sent the message, i am caretaker
+            return `You have requested to be listed as ${caretaker.user}'s caretaker, awaiting their approval`;
+        }
+      } else return null;
+    }
+    
+   
+    if (!!caretaker && !!caretaker.accepted)
     {
       myNotifications.push( 
         <>
           <Grid.Row className='notification-row'>
             <Grid.Column>
-              <strong>{careMessage}</strong>
+              <strong>{careMessage()}</strong>
             </Grid.Column>
           </Grid.Row>  
           <div class="ui clearing divider"></div>
@@ -127,8 +128,9 @@ const NotificationsTab = ({matches,caretaker,updateMatch,currentUser,setCaretake
 
   const renderAll = () =>
   {
-    const listNotes = <Grid columns={1}>{renderNotifications()}</Grid>;
-    const gridNotes = <Grid columns={4}>{renderGridNotifications()}</Grid>;
+    const listNotes = renderNotifications();
+    const gridNotes = renderGridNotifications();
+
     if (!listNotes[0] && !gridNotes[0])
       return <h3>You do not have any notifications</h3>
     else
@@ -136,8 +138,8 @@ const NotificationsTab = ({matches,caretaker,updateMatch,currentUser,setCaretake
       return(
         <>
           <h2>Notifications:</h2>
-          {listNotes}
-          {gridNotes}
+          <Grid columns={1}>{listNotes}</Grid>
+          <Grid columns={4}>{gridNotes}</Grid>
         </>
       )
     }

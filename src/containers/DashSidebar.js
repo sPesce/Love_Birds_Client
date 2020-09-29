@@ -72,10 +72,6 @@ const DashboardSidebar = props => {
         icon: <Label color={setColor('matches','teal')} key="matches label">{matchCount}</Label>
         },
         {
-          title: "find matches",
-          icon: null
-        },
-        {
           title: "chats",
           icon: null
         }

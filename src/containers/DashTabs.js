@@ -14,7 +14,6 @@ const DashTabs = ({currentTab}) =>
     {
       "account details": <AccountDetailsTab />,
       'notifications': <NotificationsTab />,
-      'find matches': <Redirect to="/find_matches/" />,
       'chats': <ChatsTab />
     }
     return renderObj[currentTab];
