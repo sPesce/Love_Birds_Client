@@ -11,7 +11,7 @@ import {userLogout} from '../actions/currentUser'
 //-------------------------------------------------------=
 
 
-const NavBar = ({setLogged,userLogout,logged}) => {
+const NavBar = ({userLogout,currentUser}) => {
   
   const [activeItem,setActiveItem] = useState('');
   
@@ -23,10 +23,8 @@ const NavBar = ({setLogged,userLogout,logged}) => {
       const logout = () => {
         localStorage.clear();
         userLogout();
-        setLogged(false);
+        setActiveItem('Home');
       }
-      
-      
         
       return (
         <Menu inverted id='nav-main'>
@@ -41,7 +39,7 @@ const NavBar = ({setLogged,userLogout,logged}) => {
               active={activeItem === 'Home'}
               onClick={handleItemClick}
           />          
-        { localStorage.token && logged &&
+        { (!!currentUser.first) &&
         [
           <Menu.Item
               as={Link}
@@ -66,7 +64,7 @@ const NavBar = ({setLogged,userLogout,logged}) => {
             onClick={logout}
         />
         ]}
-        {(!localStorage.token || !logged) &&
+        { (!currentUser.first) &&
         [            
           <Menu.Item
               as={Link}
@@ -91,4 +89,4 @@ const NavBar = ({setLogged,userLogout,logged}) => {
       )    
 }
 
-export default connect(null,{userLogout})(NavBar);
+export default connect((state) => {return {currentUser: state.currentUser}},{userLogout})(NavBar);

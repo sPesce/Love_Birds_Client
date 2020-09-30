@@ -18,8 +18,9 @@ const LoginForm = (props) => {
       else
       {
         localStorage.token = user.token
-        props.setLogged(true);
         history.push("/dashboard/");
+        props.setUser();
+        console.log("fetched user");
       }
     });
   }

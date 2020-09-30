@@ -15,7 +15,6 @@ const SignupForm = (props) => {
     .then(r => r.json())
     .then(user => {      
       localStorage.token = user.token
-      props.setLogged(true)
     });
   }
   

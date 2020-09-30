@@ -22,18 +22,14 @@ import {setMatches} from './actions/matches'
 
 const App = (props) => {
 
-  const [logged,setLogged] = useState()
-  const testSetLogged = (val) =>
-  {
-    setLogged(val);
-  }
-  useEffect(() => {
+    useEffect(() => {
     if(!!localStorage.token)
       {
         fetchAndSetUser();
-        setLogged(true);
       } 
   }, []);
+
+  const [token,setToken] = useState("");  
 
   const fetchAndSetUser = () => {
     fetch(URL + "find_user/", configObj("GET", true))
@@ -64,7 +60,7 @@ const App = (props) => {
   return (
     
     <BrowserRouter>
-    <NavBar logged={logged} setLogged={setLogged}/>
+      <NavBar />
       <Switch>
         <Route path='/find_matches'>
           <FindMatches/>
@@ -73,10 +69,10 @@ const App = (props) => {
           <Dashboard/>
         </Route>
         <Route path='/login'>
-          <SignupLogin content={<LoginForm setLogged={testSetLogged} logged={logged}/>} />
+          <SignupLogin content={<LoginForm setUser={fetchAndSetUser}/>} />
         </Route>
         <Route path='/signup'>
-          <SignupLogin content={<SignupForm setLogged={setLogged} />} />
+          <SignupLogin content={<SignupForm />} />
         </Route>
         <Route path='/'>
           <Landing/>
