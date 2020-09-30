@@ -20,7 +20,6 @@ const LoginForm = (props) => {
         localStorage.token = user.token
         history.push("/dashboard/");
         props.setUser();
-        console.log("fetched user");
       }
     });
   }

@@ -26,67 +26,66 @@ const NavBar = ({userLogout,currentUser}) => {
         setActiveItem('Home');
       }
         
-      return (
-        <Menu inverted id='nav-main'>
-        <Menu.Item header>
-          <Image src={logoPic} size='mini' id='nav-logo'/>
-        </Menu.Item>
-        
-        <Menu.Item
-              as={Link}
-              to='/'
-              name='HOME'
-              active={activeItem === 'Home'}
-              onClick={handleItemClick}
-          />          
-        { (!!currentUser.first) &&
+  return (
+    <Menu inverted id='nav-main'>
+      <Menu.Item header>
+        <Image src={logoPic} size='mini' id='nav-logo' />
+      </Menu.Item>
+
+      <Menu.Item
+        as={Link}
+        to='/'
+        name='HOME'
+        active={activeItem === 'Home'}
+        onClick={handleItemClick}
+      />
+      { (!!currentUser.first) &&
         [
           <Menu.Item
-              as={Link}
-              to='/dashboard/'
-              name='DASHBOARD'
-              active={activeItem === 'Dashboard'}
-              onClick={handleItemClick}
+            as={Link}
+            to='/dashboard/'
+            name='DASHBOARD'
+            active={activeItem === 'Dashboard'}
+            onClick={handleItemClick}
           />,
-          <Menu.Item
-              as={Link}
-              to='/find_matches'
-              name='FIND MATCHES'
-              active={activeItem === 'Find Matches'}
-              onClick={handleItemClick}
-          />,
+          (currentUser.validated && currentUser.account_type === 'standard') ?
+          (<Menu.Item
+            as={Link}
+            to='/find_matches'
+            name='FIND MATCHES'
+            active={activeItem === 'Find Matches'}
+            onClick={handleItemClick}
+          />) : null,
           <Menu.Item
             as={Link}
-            to='/' 
+            to='/'
             className="logout-bttn"
             name='LOGOUT'
             active={activeItem === 'logout'}
             onClick={logout}
-        />
+          />
         ]}
-        { (!currentUser.first) &&
-        [            
+      { (!currentUser.first) &&
+        [
           <Menu.Item
-              as={Link}
-              to="/signup"
-              name='SIGNUP'
-              active={activeItem === 'signup'}
-              onClick={handleItemClick}
+            as={Link}
+            to="/signup"
+            name='SIGNUP'
+            active={activeItem === 'signup'}
+            onClick={handleItemClick}
           />,
-          
+
           <Menu.Item
-              as={Link}
-              to="/login"
-              name='LOGIN'
-              active={activeItem === 'login'}
-              onClick={handleItemClick}
+            as={Link}
+            to="/login"
+            name='LOGIN'
+            active={activeItem === 'login'}
+            onClick={handleItemClick}
           />
         ]
       }
-      
-              
-      </Menu>
-      )    
+    </Menu>
+  )    
 }
 
 export default connect((state) => {return {currentUser: state.currentUser}},{userLogout})(NavBar);

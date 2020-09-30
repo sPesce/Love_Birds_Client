@@ -72,7 +72,7 @@ const App = (props) => {
           <SignupLogin content={<LoginForm setUser={fetchAndSetUser}/>} />
         </Route>
         <Route path='/signup'>
-          <SignupLogin content={<SignupForm />} />
+          <SignupLogin content={<SignupForm setUser={fetchAndSetUser}/>} />
         </Route>
         <Route path='/'>
           <Landing/>

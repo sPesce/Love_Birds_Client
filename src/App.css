@@ -112,25 +112,28 @@ div.cell.list
   background-attachment: fixed;
   background-position: center center;
   height: 90vh;
-  padding-top: 20%;
+  padding-top: 0%;
+  position: relative;
 }
 
 #nav-main{
   margin-bottom: 0px;
   border-radius: 0px;
-  border-bottom: 3px solid #9900ff;
-  
+  border-bottom: 3px solid #9900ff;  
 }
 
 #landing-content{
-  width: 15%;
+  position: absolute;
+  top: 40%;
+  left: 45%;
+  width: 300px;
   background-color: white;
-  height: 35%;
+  height: 200px;
   margin-left: 0px;
   margin-right: 0px;
   border-radius: 20px;
   box-shadow: 0 0 0 2px #000000, 0 1px 1px 0 #000000, 4px 4px 10px 0 #750085;
-  background-color: #eed4ff;
+  background-color: #eed4ffb6;
 
 }
 

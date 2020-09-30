@@ -14,7 +14,9 @@ const SignupForm = (props) => {
     fetch(USERS_URL,configObj("POST",false,{user: data}))
     .then(r => r.json())
     .then(user => {      
-      localStorage.token = user.token
+      localStorage.token = user.token;
+      props.setUser();
+      history.push('dashboard/')
     });
   }
   
