@@ -18,6 +18,8 @@ const LoginForm = (props) => {
       else
       {
         localStorage.token = user.token
+        props.setLogged(true);
+        console.log("set logged: ",props.logged);
         history.push("/dashboard/")
       }
     });

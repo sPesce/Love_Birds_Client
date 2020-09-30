@@ -7,23 +7,22 @@ import {Button} from 'semantic-ui-react'
 
 const SignupForm = (props) => {
   
-  const [logged,setLogged] = useState(false)
 
   const history = useHistory()
   const onSubmit = data => 
   {
     fetch(USERS_URL,configObj("POST",false,{user: data}))
     .then(r => r.json())
-    .then(user => {
+    .then(user => {      
       localStorage.token = user.token
-      setLogged(true)
+      props.setLogged(true)
     });
   }
   
   const { register, handleSubmit, watch, errors } = useForm();
   return (
     <form className={"ui form"} onSubmit={handleSubmit(onSubmit)}>
-      {logged && <Redirect to="/dashboard/"/>}
+      {props.logged && <Redirect to="/dashboard/"/>}
       <h2>Signup</h2>
       <div className="field">
         <label htmlFor="email" >Email Address</label>

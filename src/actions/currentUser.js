@@ -5,3 +5,10 @@ export const setCurrentUser = currentUser =>
     currentUser
   }
 }
+
+export const userLogout = () =>
+{
+  return {
+    type: 'USER_LOGOUT'
+  }
+}

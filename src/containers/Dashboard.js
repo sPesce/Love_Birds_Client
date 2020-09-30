@@ -12,38 +12,6 @@ import {setMatches} from '../actions/matches'
 
 class Dashboard extends Component
 {
-  //move me to HoC or create a helper
-  componentDidMount(){
-    (!localStorage.token && history.push('/'))
-    fetch(URL + "find_user/", configObj("GET",true))
-    .then(r => r.json())
-    .then(data => {
-      const userData = data.data.attributes      
-      this.props.setCurrentUser(userData)
-      if(userData.account_type === "standard")
-      {
-        let interests = []
-        let disabilities = []
-        data.included.forEach((record) => {
-          const {type} = record
-          const {name} = record.attributes
-          if(type === "disability")
-            disabilities.push(name)
-          else if (type === "interest")
-            interests.push(name)
-        })
-        this.props.setInterests(interests);
-        this.props.setDisabilities(disabilities);        
-      }
-    })
-    if(this.props.account_type && this.props.user.account_type === 'standard')
-    fetch(URL + 'matches/',configObj("GET",true))
-    .then(r => r.json())
-    .then(({matches}) => {
-      if(matches[0] && matches[0].disabilities)
-      this.props.setMatches(matches)
-    }) 
-  };
   render(){
     const {user} = this.props
     return(

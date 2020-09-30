@@ -6,7 +6,7 @@ import {disabilitiesReducer} from './manageDisabilities'
 import {caretakerReducer} from './manageCaretaker'
 import { matchesReducer } from './manageMatches';
 
-const rootReducer = combineReducers(
+const appReducer = combineReducers(
   {
     currentTab: currentTabReducer,
     currentUser: currentUserReducer,
@@ -16,5 +16,12 @@ const rootReducer = combineReducers(
     matches: matchesReducer
   }
 )
+
+const rootReducer = (state, action) => {
+  if(action.type === 'USER_LOGOUT')
+    state = undefined
+    
+  return appReducer(state, action)
+}
 
 export default rootReducer;
