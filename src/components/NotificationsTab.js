@@ -91,7 +91,6 @@ const NotificationsTab = ({matches,caretaker,updateMatch,currentUser,setCaretake
         const match = {...matches[i]}
         if(match.sender_status === 2 && match.reciever_status === 0)
         {
-          console.log("pushing")
           myNotifications.push(
             <>
               <Grid.Row className='notification-row' key={`${i}notification`}>

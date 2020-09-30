@@ -12,7 +12,6 @@ import {userLogout} from '../actions/currentUser'
 
 
 const NavBar = ({setLogged,userLogout,logged}) => {
-  console.log(logged);
   
   const [activeItem,setActiveItem] = useState('');
   

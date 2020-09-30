@@ -21,7 +21,6 @@ const FindMatches = props =>
 
   const removeMatch = (id) =>
   {
-    console.log('removing ',id)
     setMatches(
       matches.filter((match,i) => id !== i)
     )
@@ -29,7 +28,6 @@ const FindMatches = props =>
 
   const setAndFetch = (e,{value}) =>
   {
-    console.log(`Finding matches within ${value && value} miles...`)
     setDistance(value)
     fetch(FIND_MATCHES,configObj("POST",true,value && {radius: parseInt(value)}))
     .then(r => r.json())

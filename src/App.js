@@ -25,14 +25,11 @@ const App = (props) => {
   const [logged,setLogged] = useState()
   const testSetLogged = (val) =>
   {
-    console.log("setting logged to ", val);
     setLogged(val);
-    console.log("logged is now ", logged);
   }
   useEffect(() => {
     if(!!localStorage.token)
       {
-        console.log("Setting User.");
         fetchAndSetUser();
         setLogged(true);
       } 

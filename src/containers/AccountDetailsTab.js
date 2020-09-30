@@ -8,7 +8,6 @@ const AccountDetailsTab = ({currentUser}) =>
 {
   
   const isStandard = currentUser.account_type === "standard"
-  console.log("standard?: ",isStandard)
   return(
     <> 
       <AccountDetailsGrid />
