@@ -5,6 +5,7 @@ import AccountDetailsTab from './AccountDetailsTab'
 import NotificationsTab from '../components/NotificationsTab'
 import ChatsTab from '../containers/ChatsTab'
 import {Redirect} from 'react-router-dom'
+import MatchListTab from '../components/MatchListTab'
 
 const DashTabs = ({currentTab}) =>
 {
@@ -14,7 +15,8 @@ const DashTabs = ({currentTab}) =>
     {
       "account details": <AccountDetailsTab />,
       'notifications': <NotificationsTab />,
-      'chats': <ChatsTab />
+      'chats': <ChatsTab />,
+      'matches': <MatchListTab />
     }
     return renderObj[currentTab];
   }
