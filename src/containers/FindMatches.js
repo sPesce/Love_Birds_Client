@@ -1,17 +1,16 @@
-import React, {useState,useEffect} from 'react'
+import React, {useState} from 'react'
 import {FIND_MATCHES} from '../constants/URL'
 import configObj from '../helpers/configObj'
 import DistanceForm from '../components/DistanceForm'
 import { Container } from 'semantic-ui-react'
-import MatchCards from './MatchCards'
-import {URL,DISABILITIES_URL} from '../constants/URL'
 import {connect} from 'react-redux'
 import {setCurrentUser} from '../actions/currentUser'
 import {setDisabilities} from '../actions/disabilities'
 import {setInterests} from '../actions/interests'
 import {setMatches} from '../actions/matches'
 import MatchModal from './MatchModal'
-const FindMatches = props =>
+
+const FindMatches = () =>
 {
   //non accepted matches, only list of users
   const [matches,setMatches] = useState([])

@@ -1,7 +1,4 @@
-import React, {Component,history} from 'react'
-import {useHistory} from 'react-router-dom'
-import configObj from '../helpers/configObj'
-import {URL,DISABILITIES_URL} from '../constants/URL'
+import React, {Component} from 'react'
 import DashSidebar from '../containers/DashSidebar'
 import {connect} from 'react-redux'
 import {setCurrentUser} from '../actions/currentUser'

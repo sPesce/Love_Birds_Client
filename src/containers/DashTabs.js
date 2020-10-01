@@ -13,15 +13,15 @@ const DashTabs = ({currentTab}) =>
   {
     const renderObj = 
     {
-      "account details": <AccountDetailsTab />,
-      'notifications': <NotificationsTab />,
-      'chats': <ChatsTab />,
-      'matches': <MatchListTab />
+      "account details": <AccountDetailsTab key={'acc-details'}/>,
+      'notifications': <NotificationsTab key={'notifications-tab'}/>,
+      'chats': <ChatsTab key={'chats'}/>,
+      'matches': <MatchListTab key={'matches'}/>
     }
     return renderObj[currentTab];
   }
   return( 
-    <Grid.Column  width={12}>
+    <Grid.Column  width={12} key='width-12-grid-col'>
       <Segment>
         {renderTab()}
       </Segment>

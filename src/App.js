@@ -52,7 +52,7 @@ const App = (props) => {
         props.setDisabilities(disabilities);
           fetch( URL+'matches/' , configObj("GET",true))
           .then(r => r.json())
-          .then(({ matches }) => props.setMatches(matches)); 
+          .then(( matches ) => props.setMatches(matches));//
       }
     })
   }

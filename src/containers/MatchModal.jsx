@@ -98,7 +98,6 @@ const shareZip = (zip1,zip2) =>
 
 const inCommon = (current,match) =>
 {
-  let matchThese = []
   const interest = shareInterest(current.interests,match.interests)
   const zip = shareZip(current.zip_code,match.zip_code)
   const disability = shareDisability(current.disabilities,match.disabilities)

@@ -28,11 +28,12 @@ const NavBar = ({userLogout,currentUser}) => {
         
   return (
     <Menu inverted id='nav-main'>
-      <Menu.Item header>
+      <Menu.Item header key='image-menu-item'>
         <Image src={logoPic} size='mini' id='nav-logo' />
       </Menu.Item>
 
       <Menu.Item
+        key='home-menu-item'
         as={Link}
         to='/'
         name='HOME'
@@ -42,6 +43,7 @@ const NavBar = ({userLogout,currentUser}) => {
       { (!!currentUser.first) &&
         [
           <Menu.Item
+            key='dash-menu-item'
             as={Link}
             to='/dashboard/'
             name='DASHBOARD'
@@ -50,6 +52,7 @@ const NavBar = ({userLogout,currentUser}) => {
           />,
           (currentUser.validated && currentUser.account_type === 'standard') ?
           (<Menu.Item
+            key='find-matches-menu-item'
             as={Link}
             to='/find_matches'
             name='FIND MATCHES'
@@ -57,6 +60,7 @@ const NavBar = ({userLogout,currentUser}) => {
             onClick={handleItemClick}
           />) : null,
           <Menu.Item
+            key='logout-menu-item'
             as={Link}
             to='/'
             className="logout-bttn"
@@ -68,6 +72,7 @@ const NavBar = ({userLogout,currentUser}) => {
       { (!currentUser.first) &&
         [
           <Menu.Item
+            key='signup-menu-item'
             as={Link}
             to="/signup"
             name='SIGNUP'
@@ -76,6 +81,7 @@ const NavBar = ({userLogout,currentUser}) => {
           />,
 
           <Menu.Item
+          key='login-menu-item'
             as={Link}
             to="/login"
             name='LOGIN'

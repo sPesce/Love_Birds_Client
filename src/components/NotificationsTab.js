@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {useEffect,Fragment} from 'react'
 import {connect} from 'react-redux'
 import {Button,Grid, Container} from 'semantic-ui-react'
 import {URL} from '../constants/URL'
@@ -18,7 +18,7 @@ const NotificationsTab = ({matches,caretaker,updateMatch,currentUser,setCaretake
       if(!caretaker.error)
         setCaretaker(caretaker)
     })    
-  },[]);
+  },[caretaker,setCaretaker]);
 
 
   const renderNotifications = () =>
@@ -33,7 +33,7 @@ const NotificationsTab = ({matches,caretaker,updateMatch,currentUser,setCaretake
       myNotifications =  notifications.map(note => {
         return( 
         <Grid.Row key={`li-${note}`}>
-          <Grid.Column>
+          <Grid.Column key={`col-of-${note}-row`}>
             <strong>{note}</strong>
           </Grid.Column>
         </Grid.Row>
@@ -67,14 +67,14 @@ const NotificationsTab = ({matches,caretaker,updateMatch,currentUser,setCaretake
     if (!!caretaker && !!caretaker.accepted)
     {
       myNotifications.push( 
-        <>
-          <Grid.Row className='notification-row'>
-            <Grid.Column>
+        <Fragment key='care-notification-x'>
+          <Grid.Row className='notification-row' key={`notif-row-caretaker`}>
+            <Grid.Column key={`col-in-notif-row`}>
               <strong>{careMessage()}</strong>
             </Grid.Column>
           </Grid.Row>  
-          <div class="ui clearing divider"></div>
-        </>
+          <div className="ui clearing divider"></div>
+        </Fragment>
       ) 
     }
       
@@ -82,7 +82,7 @@ const NotificationsTab = ({matches,caretaker,updateMatch,currentUser,setCaretake
   }
   
   //these have buttons, so they will be in a grid to style
-  const renderGridNotifications = () => {
+  const renderMatchNotifications = () => {
     let myNotifications = []
     if(matches)
     {
@@ -92,23 +92,23 @@ const NotificationsTab = ({matches,caretaker,updateMatch,currentUser,setCaretake
         if(match.sender_status === 2 && match.reciever_status === 0)
         {
           myNotifications.push(
-            <>
+            <Fragment key={`notif-frag-${i}`}>
               <Grid.Row className='notification-row' key={`${i}notification`}>
-                <Grid.Column verticalAlign='middle' width={5}>
-                  <strong>{`${match.sender_name} wants to match!`}</strong>
+                <Grid.Column verticalAlign='middle' width={5} key={`notif-cell-${i}-0`}>
+                  <strong key={`strong${i}`}>{`${match.user.first} wants to match!`}</strong>
                 </Grid.Column>
-                <Grid.Column width={2} >
-                  <Button color="blue" onClick={() => acceptMatch(true,match.id)}>Accept</Button>
+                <Grid.Column width={2} key={`notif-cell-${i}-1`}>
+                  <Button color="blue" onClick={() => acceptMatch(true,match.id)} key={`${i}-button-accept`}>Accept</Button>
                 </Grid.Column>
-                <Grid.Column width={2}>
-                  <Button color="red" onClick={() => acceptMatch(false,match.id)}>Deny</Button>
+                <Grid.Column width={2} key={`notif-cell-${i}-2`}>
+                  <Button color="red" onClick={() => acceptMatch(false,match.id)} key={`${i}-button`}>Deny</Button>
                 </Grid.Column>
-                <Grid.Column width={4}>
-                  <Button >View Profile</Button>
+                <Grid.Column width={4} key={`notif-cell-${i}-3`}>
+                  <Button key={`${i}-button-view-prof`}>View Profile</Button>
                 </Grid.Column>
               </Grid.Row>
-              <div class="ui clearing divider"></div>
-            </>            
+              <div className="ui clearing divider"></div>
+            </Fragment>            
           )
         }
       }
@@ -128,24 +128,24 @@ const NotificationsTab = ({matches,caretaker,updateMatch,currentUser,setCaretake
   const renderAll = () =>
   {
     const listNotes = renderNotifications();
-    const gridNotes = renderGridNotifications();
+    const gridNotes = renderMatchNotifications();
 
     if (!listNotes[0] && !gridNotes[0])
-      return <h3>You do not have any notifications</h3>
+      return <h3 key='h3-no-notes'>You do not have any notifications</h3>
     else
     {        
       return(
-        <>
+        <Fragment key={`notif-frag-main-list`}>
           <h2>Notifications:</h2>
-          <Grid columns={1}>{listNotes}</Grid>
-          <Grid columns={4}>{gridNotes}</Grid>
-        </>
+          <Grid columns={1} key='notif-grid-1-col'>{listNotes}</Grid>
+          <Grid columns={4} key='notif-grid-4-col'>{gridNotes}</Grid>
+        </Fragment>
       )
     }
   }
 
   return (
-    <Container id='notifications-tab'>
+    <Container id='notifications-tab' key='notif-tab-cont'>
       {renderAll()}
     </Container>
   )

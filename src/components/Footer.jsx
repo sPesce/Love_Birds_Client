@@ -6,8 +6,8 @@ const Footer = () => {
                 <div className="center">
                         <div className="icons">
                             
-                            <a href="https://github.com/sPesce" style={{color: 'white' }}> <i class="github large icon"></i> </a>
-                            <a href="https://www.linkedin.com/in/steve-pesce/" style={{color: 'white'}}> <i class="linkedin large icon"></i> </a>
+                            <a href="https://github.com/sPesce" style={{color: 'white' }}> <i className="github large icon"></i> </a>
+                            <a href="https://www.linkedin.com/in/steve-pesce/" style={{color: 'white'}}> <i className="linkedin large icon"></i> </a>
                             
                         </div>
                         <div >
