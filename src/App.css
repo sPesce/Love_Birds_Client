@@ -170,6 +170,9 @@ h4#footer-h4{
   padding-left: 1px;
   margin-left: 2px;
 }
+.matches-list-small-pic{
+  border-radius: 100%;
+}
 
 #main-dash-grid{
   height:89vh;
