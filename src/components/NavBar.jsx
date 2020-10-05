@@ -13,8 +13,7 @@ import {userLogout} from '../actions/currentUser'
 
 const NavBar = ({userLogout,currentUser}) => {
   
-  const [activeItem,setActiveItem] = useState('');
-  
+  const [activeItem,setActiveItem] = useState(''); 
     
     const handleItemClick = (e, { name }) => {
         setActiveItem(name);
@@ -40,7 +39,7 @@ const NavBar = ({userLogout,currentUser}) => {
         active={activeItem === 'Home'}
         onClick={handleItemClick}
       />
-      { (!!currentUser.first) &&
+      { (!!currentUser.account_type) &&
         [
           <Menu.Item
             key='dash-menu-item'
@@ -69,7 +68,7 @@ const NavBar = ({userLogout,currentUser}) => {
             onClick={logout}
           />
         ]}
-      { (!currentUser.first) &&
+      { (!currentUser.account_type) &&
         [
           <Menu.Item
             key='signup-menu-item'

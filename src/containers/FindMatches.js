@@ -33,9 +33,8 @@ const FindMatches = () =>
     .then(matches => {
       setMatches(matches)
       if(matches[0])
-        setOpen(true)
-      debugger;
-    }
+        setOpen(true);
+      }
       )
   }
   

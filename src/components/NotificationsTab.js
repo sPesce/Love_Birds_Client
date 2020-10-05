@@ -51,12 +51,12 @@ const NotificationsTab = ({matches,caretaker,updateMatch,currentUser,setCaretake
           if(currentUser.account_type === 'standard')//I sent request, i am standard user
             return `Awaiting ${caretaker.caretaker} to accept your request to be listed as your caretaker`;
           else//user sent request, I am caretaker
-            return `${caretaker.user} has listed you as their caretaker, awaiting your approval`;
+            return `${caretaker.user} has listed you as their caretaker, visit account details to approve.`;
         }
         else//caretaker sent request
         {
           if(currentUser.account_type === 'standard')//caretaker sent request, i am standard user
-            return `${caretaker.caretaker} wants to be listed as your caretaker, awaiting your approval`;
+            return `${caretaker.caretaker} wants to be listed as your caretaker, visit account details to approve.`;
           else//I sent the message, i am caretaker
             return `You have requested to be listed as ${caretaker.user}'s caretaker, awaiting their approval`;
         }
@@ -89,7 +89,7 @@ const NotificationsTab = ({matches,caretaker,updateMatch,currentUser,setCaretake
       for(let i = 0; i < matches.length ; i++)
       {
         const match = {...matches[i]}
-        if(match.sender_status === 2 && match.reciever_status === 0)
+        if(match.sender_status === 2 && match.reciever_status === 0 && currentUser.email === match.matched_user.email)
         {
           myNotifications.push(
             <Fragment key={`notif-frag-${i}`}>
