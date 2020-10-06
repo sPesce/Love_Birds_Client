@@ -21,7 +21,7 @@ control over the user's account (such as approving a match).
 back-end [link](https://github.com/sPesce/Love_Birds_Server)
 
 
-//add demo
+[Demo](https://www.linkedin.com/feed/update/urn:li:activity:6718944838600949760/)
 
 
 ## Install
